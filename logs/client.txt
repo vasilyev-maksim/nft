@@ -1,0 +1,11 @@
+
+added 8 packages, changed 4 packages, and audited 309 packages in 5s
+
+83 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> nft-client@1.0.0 start
+> vite --host
+

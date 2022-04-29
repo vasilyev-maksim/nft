@@ -1,0 +1,40 @@
+*.local
+.yarn
+.lh
+
+# Build #
+#########
+dist
+dist-ssr
+lib
+
+# Dev files #
+########
+.env
+*.pem
+
+# External libs #
+#################
+node_modules
+
+# Logs #
+########
+*.log
+reports
+
+# IDE generated files #
+#######################
+.idea
+.vscode
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+.history

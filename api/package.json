@@ -1,0 +1,41 @@
+{
+  "name": "nft-api",
+  "description": "API server for NFT generator app",
+  "license": "MIT",
+  "author": "Maksim Vasilyev",
+  "version": "1.0.0",
+  "scripts": {
+    "audit": "lerna run audit --stream",
+    "audit:depcheck": "lerna run audit:depcheck --stream",
+    "audit:npm-check-updates": "npx npm-check-updates --errorLevel 1",
+    "build": "tsc -p .",
+    "create": "npm run build && npm run test",
+    "local": "sudo npm uninstall -g && sudo npm install -g && pizza",
+    "npm:format": "npx prettier-package-json --write package.json",
+    "npm:upgrade": "npx npm-check-updates -iu",
+    "refresh": "rm -rf ./node_modules ./package-lock.json && npm install",
+    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "test": "sudo npm i -g && pizza"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7",
+    "sharp": "^0.30.3"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.2",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/morgan": "^1.9.3",
+    "@types/node": "^14.14.33",
+    "@types/sharp": "^0.30.0",
+    "depcheck": "^1.4.0",
+    "lerna": "^4.0.0",
+    "nodemon": "^2.0.7",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.3"
+  }
+}
