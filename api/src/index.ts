@@ -3,9 +3,9 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import { CollectionProvider } from './CollectionProvider';
 import { FileSystem } from './FileSystem';
-import { Iid } from './Iid';
 import { join } from 'path';
 import morgan from 'morgan';
+import { Iid } from 'shared';
 
 // TODO: move 'join' and __dirname to FileSystem
 const collectionsDir = new FileSystem().getDirectory(join(__dirname, '..', 'collections'));
