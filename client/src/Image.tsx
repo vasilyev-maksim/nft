@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useQuery } from 'react-query';
 import { preview } from './api';
 import { useCollection } from './hooks';
-import { Iid } from './Iid';
+import { Iid } from 'shared';
 
 export const Image: React.FC<React.HTMLAttributes<HTMLDivElement> & { iid: Iid; size: number; active?: boolean }> = ({
   iid,

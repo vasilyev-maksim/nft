@@ -1,16 +1,13 @@
 {
-  // "include": ["./src/*.ts"],
   "compilerOptions": {
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
-    "downlevelIteration": true,
     "esModuleInterop": true,
+    "downlevelIteration": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitThis": true,
-    // "types": ["node"],
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    // "moduleResolution": "Node"
     "strict": true,
     "useDefineForClassFields": true,
     "moduleResolution": "Node"

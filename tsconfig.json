@@ -11,10 +11,13 @@
     "types": ["node"]
   },
   "extends": "./tsconfig.base.json",
-  "include": ["./*.ts"]
-  // "references": [
-  //   {
-  //     "path": "./shared"
-  //   }
-  // ]
+  "include": ["./*.ts"],
+  "references": [
+    {
+      "path": "./shared/tsconfig.api.json"
+    },
+    {
+      "path": "./shared/tsconfig.client.json"
+    }
+  ]
 }

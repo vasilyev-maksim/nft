@@ -1,11 +1,10 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import { useQuery } from 'react-query';
+import { Iid, IidBuilder } from 'shared';
 import { getCollectionConfig } from './api';
 import { useCollection } from './hooks';
 import { Image } from './Image';
-import { Iid } from './Iid';
-import { IidBuilder } from './IidBuilder';
 
 export const LayersToolbar: React.FC<{
   selected: Iid;

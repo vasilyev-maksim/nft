@@ -1,8 +1,6 @@
 import { File, FileError } from './File';
 import { FidSource } from './Fid';
 import { ILayersConfig } from './Layer';
-import { IidBuilder } from './IidBuilder';
-import { Schema, Parser } from './Parser';
 
 export interface IConfig {
   layers: ILayersConfig;

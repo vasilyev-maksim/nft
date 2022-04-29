@@ -1,9 +1,9 @@
-import { Iid } from './Iid';
+import { Iid } from 'shared';
 
 export interface ILayerGroup {
   id: string;
   probability: number;
-  layers: string[];
+  layers: number[];
 }
 
 export interface ICollectionConfig {
