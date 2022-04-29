@@ -1,12 +1,20 @@
 {
-  "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "target": "ESNext",
+    "jsx": "react-jsx",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "module": "ESNext",
-    "jsx": "react-jsx",
     "outDir": "./dist",
-    "rootDir": "./src"
+    "paths": {
+      "shared": ["../shared/src/client"]
+    },
+    "rootDir": "./src",
+    "target": "ESNext"
   },
-  "include": ["./src"]
+  "extends": "../tsconfig.base.json",
+  "include": ["./src"],
+  "references": [
+    {
+      "path": "../shared"
+    }
+  ]
 }

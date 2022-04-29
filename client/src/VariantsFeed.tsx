@@ -5,8 +5,8 @@ import { getRandomImages } from './api';
 import { CollectionSelector } from './CollectionSelector';
 import { useCollection } from './hooks';
 import { Image } from './Image';
-import { Iid } from './Iid';
 import { Loader } from './Loader';
+import { Iid } from 'shared';
 
 export const VariantsFeed: React.FC<{
   onSelect: (val: Iid) => void;

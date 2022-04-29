@@ -1,5 +1,4 @@
-import { IidData, Iid } from './Iid';
-import { Layer } from './Layer';
+import { IidData, Iid, Id } from './Iid';
 import { RecursivePartial } from './utils';
 
 export class IidBuilder {
@@ -26,19 +25,19 @@ export class IidBuilder {
     return this.map(x => (x.collection = collection));
   }
 
-  public withSingleLayer(layerId: Layer['id']): this {
+  public withSingleLayer(layerId: Id): this {
     return this.map(x => (x.layerIds = [layerId]));
   }
 
-  public withLayers(layers: Layer['id'][]): this {
+  public withLayers(layers: Id[]): this {
     return this.map(x => (x.layerIds = layers));
   }
 
-  public addLayer(layerId: Layer['id']): this {
+  public addLayer(layerId: Id): this {
     return this.map(x => (x.layerIds = [...(x.layerIds ?? []), layerId]));
   }
 
-  public removeLayer(layerId: Layer['id']): this {
+  public removeLayer(layerId: Id): this {
     return this.map(x => (x.layerIds = (x.layerIds ?? []).filter(l => l !== layerId)));
   }
 

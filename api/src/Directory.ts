@@ -1,5 +1,5 @@
 import { readdirSync, watchFile } from 'fs';
-import { Fid, FidSource, FidSourceExcept } from './Fid';
+import { Fid, FidSourceExcept } from './Fid';
 import { File } from './File';
 
 // TODO: custom error class

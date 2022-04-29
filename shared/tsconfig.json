@@ -1,16 +1,17 @@
 {
-  // "include": ["./src/*.ts"],
-  "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
-    "incremental": true,
     "declaration": true,
     "declarationMap": true,
-    "target": "es5",
-    "module": "CommonJS",
+    "incremental": true,
     "lib": ["es6", "es2015", "ES2020"],
+    "module": "CommonJS",
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "target": "es5"
     // "types": ["node"],
-  }
+  },
+  // "include": ["./src/*.ts"],
+  "extends": "../tsconfig.base.json",
+  "include": ["./src"]
 }

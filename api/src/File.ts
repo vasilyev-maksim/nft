@@ -1,6 +1,6 @@
 import { readFileSync, watchFile, writeFileSync } from 'fs';
 import { parse } from 'path';
-import { AppError } from './AppError';
+import { AppError } from 'shared';
 import { Directory } from './Directory';
 import { Fid, FidSource, FidSourceExcept } from './Fid';
 

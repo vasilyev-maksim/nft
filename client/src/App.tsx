@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import * as React from 'react';
 import { CollectionContext } from './hooks';
 import { LayersToolbar } from './LayersToolbar';
-import { Iid } from './Iid';
+import { Iid } from 'shared';
 import { Preview } from './Preview';
 import { VariantsFeed } from './VariantsFeed';
 

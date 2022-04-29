@@ -1,4 +1,4 @@
-import { AppError } from './AppError';
+import { AppError, Id } from 'shared';
 import { File } from './File';
 
 export class Layer {
@@ -14,7 +14,7 @@ export class Layer {
   }
 }
 
-export type ILayersConfig = Map<string, Layer['id']>;
+export type ILayersConfig = Map<string, Id>;
 
 export class LayersProvider {
   public Layer = Layer;

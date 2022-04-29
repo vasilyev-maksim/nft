@@ -1,25 +1,9 @@
-// https://github.com/microsoft/TypeScript/issues/29594#issuecomment-507701193
-export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void ? I : never;
-
 export interface ICodec<S extends Schema> {
   decode(str: string, schema: S): S;
   encode(schema: S): string;
 }
 
 export type Schema = string | number | { [k: string]: Schema } | Schema[];
-const a: Schema = [
-  {
-    a: {
-      b: [{ c: 0, d: 0 }],
-    },
-  },
-];
-// type Model = { [key: string]: string | string[] };
-//{ type: 'value' | 'array'; key: string } | Schema[];
-
-//  : {
-//   [k in keyof T]: T[k] extends { type: 'value' }
-// };
 
 // TODO: пропускать случай с одним листом ( не увеличивать вложенность)
 

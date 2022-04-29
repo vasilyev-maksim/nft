@@ -2,7 +2,7 @@ import * as React from 'react';
 import { generate } from './api';
 import { Image } from './Image';
 import { Input } from './Input';
-import { Iid } from './Iid';
+import { Iid } from 'shared';
 
 const DEFAULT_SIZE = 1500;
 
@@ -19,7 +19,7 @@ export const Preview: React.FC<{ iid?: Iid }> = ({ iid }) => {
             className='flex flex-col gap-1 mt-2'
             onSubmit={e => {
               e.preventDefault();
-              generate(iid!, filename, parseInt(size)).then(() => {
+              generate(iid, filename, parseInt(size)).then(() => {
                 alert(`${filename} image saved!`);
                 setFilename('');
               });

@@ -22,6 +22,27 @@ export type RecursivePartial<T> = {
     : T[P];
 };
 
+// https://github.com/microsoft/TypeScript/issues/29594#issuecomment-507701193
+export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void ? I : never;
+
+export class Lazy<T> {
+  private cache: T | null = null;
+
+  public constructor(private readonly getter: () => T) {}
+
+  public get value(): T {
+    if (this.cache === null) {
+      this.cache = this.getter();
+    }
+
+    return this.cache;
+  }
+
+  public invalidate(): void {
+    this.cache = null;
+  }
+}
+
 // #!/usr/bin/env node
 
 // import { readdirSync, readFileSync, writeFileSync } from 'fs';

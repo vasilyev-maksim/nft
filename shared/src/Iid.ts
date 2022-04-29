@@ -3,8 +3,14 @@ import { Codec } from './Codec';
 import { IidBuilder } from './IidBuilder';
 import { RecursiveReadonly, RecursiveRequired } from './utils';
 
+// TODO: custom error class
+//TODO: add version to IID to reload app if collection fs changed
+// TODO: encode layer category to IId
+
+export type Id = number;
+
 export interface IidData {
-  layerIds: string[];
+  layerIds: Id[];
   collection: string;
   size?: {
     width: number;
@@ -79,15 +85,15 @@ export class Iid {
       } else {
         throw new AppError('Iid source is undefined');
       }
-    } catch (error: any) {
-      throw new AppError('Iid.ctor failed: ' + error.message, {
+    } catch (childError: any) {
+      throw new AppError('Iid.ctor failed', {
         iid: source instanceof Iid || typeof source === 'string' ? source : undefined,
-        childError: error,
+        childError,
       });
     }
   }
 
-  public contains(layerId: string): boolean {
+  public contains(layerId: Id): boolean {
     return this.data.layerIds.includes(layerId);
   }
 

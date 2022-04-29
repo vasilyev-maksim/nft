@@ -1,7 +1,7 @@
 import { Layer, LayersProvider } from './Layer';
 import { LayerGroup } from './LayerGroup';
 import { Image } from './Image';
-import { Iid } from './Iid';
+import { Id, Iid } from 'shared';
 import { Directory } from './Directory';
 import { Config } from './Config';
 
@@ -63,7 +63,7 @@ export class Collection {
     const layerIds = this.groups
       .map(x => x.getRandom())
       .filter(Boolean)
-      .map(x => x?.id) as Layer['id'][];
+      .map(x => x?.id) as Id[];
     return new Iid({ layerIds, collection: this.name });
   }
 

@@ -1,6 +1,4 @@
-import { join } from 'path';
-import { FileSystem } from './FileSystem';
-import { Lazy } from './Lazy';
+import { Lazy } from 'shared';
 import { Collection } from './Collection';
 import { Directory } from './Directory';
 
