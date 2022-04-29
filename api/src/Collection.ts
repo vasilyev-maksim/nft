@@ -1,4 +1,4 @@
-import { ILayersConfig, Layer, LayersProvider } from './Layer';
+import { Layer, LayersProvider } from './Layer';
 import { LayerGroup } from './LayerGroup';
 import { Image } from './Image';
 import { Iid } from './Iid';
