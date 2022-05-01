@@ -2,6 +2,7 @@ import { ILayer } from './Layer';
 
 export interface ICategory {
   id: string;
+  name: string;
   probability: number;
   layers: ILayer[];
 }

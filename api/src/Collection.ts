@@ -1,5 +1,5 @@
 import { Layer } from './Layer';
-import { LayersProvider } from './LayersProvider';
+import { CategoryProvider } from './CategoryProvider';
 import { Category } from './Category';
 import { Image } from './Image';
 import { Iid, IidBuilder } from 'shared';
@@ -7,13 +7,13 @@ import { Directory } from './Directory';
 import { Config } from './Config';
 
 export class Collection {
-  public static CONFIG_FILE = 'config.txt';
-  public static SNAPSHOT_FILE = '__snapshot.txt';
-  public static RESULTS_DIR = 'results';
+  private static readonly CONFIG_FILE = 'config.txt';
+  private static readonly SNAPSHOT_FILE = '__snapshot.txt';
+  private static readonly RESULTS_DIR = 'results';
 
   private categories: Category[] = [];
   private version: number = 0;
-  private readonly layersProvider: LayersProvider;
+  private readonly categoryProvider: CategoryProvider;
   private readonly resultsDir: Directory;
 
   public get name() {
@@ -26,14 +26,18 @@ export class Collection {
     const config = new Config(configFile, snapshotFile);
 
     this.resultsDir = this.dir.getDirectoryByName(Collection.RESULTS_DIR);
-    this.layersProvider = new LayersProvider(config);
+    this.categoryProvider = new CategoryProvider(config);
 
     this.init();
-    // dir.watch(() => this.init());
+    // TODO: implemetn proper files watch
+    dir.watch(() => {
+      console.log(this.name + ' collection root dir updated, reinitializing collection');
+      // return this.init();
+    });
   }
 
   private init(): void {
-    const { categories, version } = this.layersProvider.readLayerCategoriesFromDir(this.dir);
+    const { categories, version } = this.categoryProvider.readCategoriesFromDir(this.dir);
 
     this.categories = categories;
     this.version = version;
@@ -56,8 +60,8 @@ export class Collection {
     };
   }
 
-  public saveImage(iid: Iid): void {
-    const file = this.resultsDir.getFileByName(iid.toString() + '.svg');
+  public saveImage(iid: Iid, filename: string): void {
+    const file = this.resultsDir.getFileByName((filename || iid.id) + '.svg');
     const image = this.getImageByIid(iid);
     return image?.saveToSvg(iid.width, iid.width, file);
   }

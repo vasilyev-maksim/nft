@@ -39,6 +39,7 @@ export class Directory {
   }
 
   public watch(listener: () => void, interval = 1000): void {
+    // TODO: work only for files
     watchFile(this.fid.path, { interval }, listener);
   }
 

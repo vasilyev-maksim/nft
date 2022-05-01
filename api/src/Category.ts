@@ -1,7 +1,12 @@
 import { Iid, Layer } from 'shared';
 
 export class Category {
-  public constructor(public readonly id: number, public readonly probability: number, private layers: Layer[]) {}
+  public constructor(
+    public readonly id: number,
+    public readonly name: string,
+    public readonly probability: number,
+    private layers: Layer[],
+  ) {}
 
   public getRandom(): Layer | null {
     return Math.random() <= this.probability ? this.layers[Math.floor(Math.random() * this.layers.length)] : null;
@@ -24,6 +29,7 @@ export class Category {
       layers: this.layers,
       id: this.id,
       probability: this.probability,
+      name: this.name,
     };
   }
 }

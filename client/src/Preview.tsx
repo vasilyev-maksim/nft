@@ -14,7 +14,7 @@ export const Preview: React.FC<{ iid?: Iid }> = ({ iid }) => {
     <div className='w-[400px]'>
       {iid && (
         <>
-          <Image className='mt-7' size={400} iid={iid} />
+          <Image className='mt-7' size={400} key={iid.id} iid={iid} />
           <form
             className='flex flex-col gap-1 mt-2'
             onSubmit={e => {

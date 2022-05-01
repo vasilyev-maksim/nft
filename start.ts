@@ -1,5 +1,5 @@
 import { ChildProcess, spawn } from 'child_process';
-import { createWriteStream } from 'node:fs';
+import { createWriteStream, mkdirSync } from 'node:fs';
 import { join } from 'path';
 import { Transform, TransformOptions } from 'stream';
 
@@ -21,7 +21,10 @@ class Project {
     const cmdStr = `cd ${path} && npm i && npm start`;
 
     const prefix = new PrefixerTransform(this.directory);
-    const logWriteStream = createWriteStream(join(this.rootProcess.cwd(), 'logs', this.directory + '.txt'), {
+    const logsDir = join(this.rootProcess.cwd(), 'logs');
+
+    mkdirSync(logsDir, { recursive: true });
+    const logWriteStream = createWriteStream(join(logsDir, this.directory + '.txt'), {
       flags: 'a',
     });
     prefix.pipe(this.rootProcess.stdout);

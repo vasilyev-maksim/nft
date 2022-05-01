@@ -3,21 +3,21 @@ import { Directory } from './Directory';
 import { Category } from './Category';
 import { Layer } from './Layer';
 
-export class LayersProvider {
+export class CategoryProvider {
   public constructor(private readonly config: Config) {}
 
-  public readLayerCategoriesFromDir(dir: Directory): { categories: Category[]; version: number } {
+  public readCategoriesFromDir(dir: Directory): { categories: Category[]; version: number } {
     const layerFiles = dir.readFilesOnly().filter(f => f.ext === '.svg');
     const snapshot = this.config.getSnapshot();
     const userConfig = this.config.getUserConfig();
 
-    let sid = snapshot ? Math.max(...snapshot.layers.map(l => l.id)) : 0;
+    let sid = snapshot ? Math.max(...snapshot.layers.map(l => l.id)) + 1 : 0;
     const categories: ISnapshot['categories'] = userConfig.categories.map((x, order) => {
       const old = snapshot?.categories.find(c => c.prefix === x.prefix);
       return { id: old?.id ?? sid++, prefix: x.prefix, probability: x.probability, order };
     });
 
-    let lid = snapshot ? Math.max(...snapshot.layers.map(l => l.id)) : 0;
+    let lid = snapshot ? Math.max(...snapshot.layers.map(l => l.id)) + 1 : 0;
     const layers = layerFiles
       .map(file => {
         const old = snapshot?.layers.find(x => x.filename === file.name);
@@ -40,6 +40,7 @@ export class LayersProvider {
         category =>
           new Category(
             category.id,
+            category.prefix,
             category.probability,
             layers.filter(l => l.category === category.id),
           ),

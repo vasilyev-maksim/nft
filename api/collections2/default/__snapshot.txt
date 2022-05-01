@@ -269,11 +269,6 @@
       "category": 15
     },
     {
-      "filename": "hair1",
-      "id": 34,
-      "category": 13
-    },
-    {
       "filename": "hair10",
       "id": 35,
       "category": 13
@@ -286,21 +281,6 @@
     {
       "filename": "hair12",
       "id": 37,
-      "category": 13
-    },
-    {
-      "filename": "hair2",
-      "id": 38,
-      "category": 13
-    },
-    {
-      "filename": "hair3",
-      "id": 39,
-      "category": 13
-    },
-    {
-      "filename": "hair4",
-      "id": 40,
       "category": 13
     },
     {
@@ -644,6 +624,6 @@
       "category": 4
     }
   ],
-  "version": 44,
-  "updatedAt": "2022-05-01T16:38:26.325Z"
+  "version": 49,
+  "updatedAt": "2022-05-01T22:54:37.094Z"
 }

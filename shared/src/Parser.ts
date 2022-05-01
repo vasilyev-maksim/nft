@@ -48,7 +48,7 @@ export class Parser<S = any> {
   }
 
   public encode(schema: S): string {
-    const separatorChar = ':'; // TODO: dynamic encoding
+    const separatorChar = '_'; // TODO: dynamic encoding
     const depth = Parser.getSchemaDepth(schema);
 
     function recursiveEncode(schema: S, currDepth = 0): string {

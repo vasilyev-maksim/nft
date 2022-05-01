@@ -1,20 +1,39 @@
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import { CollectionProvider } from './CollectionProvider';
-import { FileSystem } from './FileSystem';
 import { join } from 'path';
-import morgan from 'morgan';
-import { ICollectionConfig, ISVGTemplate, IidBuilder, IRandomImages, ICollections } from 'shared';
+// import morgan from 'morgan';
+import { ICollectionConfig, ISVGTemplate, IidBuilder, IRandomImages, ICollections, Iid } from 'shared';
+import { Directory } from './Directory';
+import { Collection } from './Collection';
 
-// TODO: move 'join' and __dirname to FileSystem
-const collectionsDir = new FileSystem().getDirectory(join(__dirname, '..', 'collections'));
+declare global {
+  namespace Express {
+    interface Request {
+      iid?: Iid;
+      collection?: Collection;
+    }
+  }
+}
+
+const collectionsDir = new Directory(join(__dirname, '..', 'collections'));
 const collections = new CollectionProvider(collectionsDir);
+
+// middlewares
+function populateRequest(req: Request, res: Response, next: NextFunction) {
+  try {
+    req.iid = req.body.iid ? new IidBuilder().fromIdString(req.body.iid).build() : undefined;
+    const collectionId = req.iid?.collection || req.body.collection || req.query.collection || req.params.collection;
+    req.collection = collections.findCollection(collectionId);
+  } catch (e) {}
+  next();
+}
 
 const app = express();
 const port = 3002;
 
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(
@@ -22,40 +41,31 @@ app.use(
     extended: true,
   }),
 );
+app.use(populateRequest);
 
-app.get('/collection/:name', (req, res) => {
-  const collection = collections.findCollection(req.params.name);
-  res.json(collection?.toJSON() as ICollectionConfig);
-});
-
-app.post('/image/save', (req, res) => {
-  const iid = new IidBuilder().fromIdString(req.body.iid).build();
-  const filename = req.body.filename || iid.id;
-  const collection = collections.findCollection(iid.collection);
-
-  collection?.saveImage(iid);
-
-  res.send(200);
-});
-
-// TODO: middlewares
-
-app.post('/image/preview', (req, res) => {
-  const iid = new IidBuilder().fromIdString(req.body.iid).build();
-  const collection = collections.findCollection(iid.collection);
-  const image = collection?.getImageByIid(iid);
-  res.json(image?.toSvgTemplate() as ISVGTemplate);
-});
-
-app.get('/images/random', (req, res) => {
-  const count = parseInt(req.query.count?.toString() ?? '200') || 200;
-  const collection = collections.findCollection(req.query.collection?.toString() ?? '')!;
-  const randomIds = Array.from({ length: count }, () => collection.getRandomImageIid()).map(x => x.id);
-  res.json(randomIds as IRandomImages);
+app.get('/collection', (req, res) => {
+  res.json(req.collection?.toJSON() as ICollectionConfig);
 });
 
 app.get('/collections/name', (req, res) => {
   res.json(collections.getCollectionNames() as ICollections);
+});
+
+app.post('/image/save', (req, res) => {
+  const filename = req.body.filename || req.iid!.id;
+  req.collection!.saveImage(req.iid!, filename);
+  res.send(200);
+});
+
+app.post('/image/preview', ({ iid, collection }, res) => {
+  const image = collection!.getImageByIid(iid!);
+  res.json(image?.toSvgTemplate() as ISVGTemplate);
+});
+
+app.get('/images/random', ({ collection, query }, res) => {
+  const count = parseInt(query.count?.toString() ?? '200') || 200;
+  const randomIds = Array.from({ length: count }, () => collection!.getRandomImageIid()).map(x => x.id);
+  res.json(randomIds as IRandomImages);
 });
 
 app.listen(port, () => {

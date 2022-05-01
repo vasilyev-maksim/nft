@@ -33,27 +33,29 @@ export const LayersToolbar: React.FC<{
       </div>
 
       <div>
-        {data?.categories.map(g => (
-          <section className='bg-slate-200 p-4 mb-4 last:mb-0 rounded-xl' key={g.id}>
+        {data?.categories.map(cat => (
+          <section className='bg-slate-200 p-4 mb-4 last:mb-0 rounded-xl' key={cat.id}>
             <header className='mb-2'>
-              {g.id} ({g.probability === 1 ? 'always presents' : 'probability ' + g.probability * 100 + '%'})
+              {cat.name}[{cat.id}] (
+              {cat.probability === 1 ? 'always presents' : 'probability ' + cat.probability * 100 + '%'})
             </header>
             <div className='flex gap-2 flex-wrap cursor-pointer'>
-              {g.layers.map(_layer => {
+              {cat.layers.map(_layer => {
                 const layer = new Layer(_layer.id, _layer.category);
+                const singleLayerIid = new IidBuilder().fromIid(selected).withSingleLayer(layer).build();
 
                 return (
                   <Image
                     onClick={() =>
-                      onSelect(x => {
-                        const builder = new IidBuilder().fromIid(x!);
-                        return (x!.contains(layer) ? builder.removeLayer(layer) : builder.setLayer(layer)).build();
+                      onSelect(curr => {
+                        const builder = new IidBuilder().fromIid(curr!);
+                        return (curr!.contains(layer) ? builder.removeLayer(layer) : builder.setLayer(layer)).build();
                       })
                     }
-                    iid={new IidBuilder().fromIid(selected).withSingleLayer(layer).build()}
+                    iid={singleLayerIid}
                     active={selected.contains(layer)}
                     size={size}
-                    key={JSON.stringify(layer)}
+                    key={singleLayerIid.id}
                     className={classNames('inline-block bg-slate-100 rounded')}
                   />
                 );

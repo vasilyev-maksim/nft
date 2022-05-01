@@ -7,7 +7,11 @@ export class CollectionProvider {
   private collections = new Lazy<Collection[]>(() => this.getCollections());
 
   public constructor(private readonly dir: Directory) {
-    this.dir.watch(() => this.collections.invalidate());
+    this.dir.watch(() => {
+      console.log('================================');
+
+      return this.collections.invalidate();
+    });
   }
 
   public findCollection(name: string): Collection | undefined {

@@ -2,7 +2,6 @@ import classNames from 'classnames';
 import * as React from 'react';
 import { useQuery } from 'react-query';
 import { preview } from './api';
-import { useCollection } from './hooks';
 import { Iid } from 'shared';
 
 export const Image: React.FC<React.HTMLAttributes<HTMLDivElement> & { iid: Iid; size: number; active?: boolean }> = ({
@@ -12,8 +11,7 @@ export const Image: React.FC<React.HTMLAttributes<HTMLDivElement> & { iid: Iid; 
   active = false,
   ...props
 }) => {
-  const { selectedCollection } = useCollection();
-  const { data, isLoading } = useQuery(['preview', iid.id, selectedCollection], () => preview(iid), {
+  const { data, isLoading } = useQuery(['preview', iid.id], () => preview(iid), {
     enabled: !!iid,
     staleTime: Infinity,
     cacheTime: Infinity,

@@ -1,0 +1,50 @@
+{
+  "categories": [
+    {
+      "id": 2,
+      "prefix": "back",
+      "probability": 1,
+      "order": 0
+    },
+    {
+      "id": 203,
+      "prefix": "hair",
+      "probability": 1,
+      "order": 1
+    }
+  ],
+  "layers": [
+    {
+      "filename": "back1",
+      "id": 2,
+      "category": 2
+    },
+    {
+      "filename": "back2",
+      "id": 3,
+      "category": 2
+    },
+    {
+      "filename": "hair1",
+      "id": 203,
+      "category": 203
+    },
+    {
+      "filename": "hair2",
+      "id": 204,
+      "category": 203
+    },
+    {
+      "filename": "hair3",
+      "id": 205,
+      "category": 203
+    },
+    {
+      "filename": "hair4",
+      "id": 206,
+      "category": 203
+    }
+  ],
+  "version": 63,
+  "updatedAt": "2022-05-01T22:54:37.095Z"
+}

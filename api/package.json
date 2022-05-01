@@ -16,8 +16,9 @@
     "express": "^4.17.3",
     "morgan": "^1.10.0",
     "path": "^0.12.7",
+    "shared": "file:../shared/dist/api",
     "sharp": "^0.30.3",
-    "shared": "file:../shared/dist/api"
+    "superstruct": "^0.15.4"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.2",
