@@ -1,4 +1,4 @@
-import { Layer, ILayer } from './Layer';
+import { Layer } from './Layer';
 
 // TODO: custom error class
 //TODO: add version to IID to reload app if collection fs changed
@@ -18,7 +18,7 @@ export class Iid {
     public readonly height: number,
   ) {}
 
-  public contains(layer: ILayer): boolean {
+  public contains(layer: Layer): boolean {
     return this.layers.some(x => x.equals(layer));
   }
 

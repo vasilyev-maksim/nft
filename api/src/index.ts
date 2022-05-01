@@ -5,7 +5,7 @@ import { CollectionProvider } from './CollectionProvider';
 import { FileSystem } from './FileSystem';
 import { join } from 'path';
 import morgan from 'morgan';
-import { ICollectionConfig, Iid, ISVGTemplate, IidBuilder, IRandomImages, ICollections } from 'shared';
+import { ICollectionConfig, ISVGTemplate, IidBuilder, IRandomImages, ICollections } from 'shared';
 
 // TODO: move 'join' and __dirname to FileSystem
 const collectionsDir = new FileSystem().getDirectory(join(__dirname, '..', 'collections'));

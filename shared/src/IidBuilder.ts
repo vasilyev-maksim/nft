@@ -95,11 +95,9 @@ export class IidBuilder {
     return clone;
   }
 
-  public addLayer(layer: Layer): IidBuilder {
+  public setLayer(layer: Layer): IidBuilder {
     const clone = this.clone();
-    const sameCatLayer = clone.layers?.find(x => x.category === layer.category);
-    if (sameCatLayer) {
-    clone.layers = [...(clone.layers ?? []), layer.clone()];
+    clone.layers = [...(clone.layers?.length ? clone.layers.filter(x => !x.inSameCategory(layer)) : []), layer];
     return clone;
   }
 
@@ -108,8 +106,6 @@ export class IidBuilder {
     clone.layers = clone.layers?.filter(l => !l.equals?.(layer)) ?? [];
     return clone;
   }
-
-  // public 
 
   public build(): Iid {
     try {
