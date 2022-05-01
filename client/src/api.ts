@@ -1,32 +1,13 @@
-import { Iid } from 'shared';
-
-export interface ILayerGroup {
-  id: string;
-  probability: number;
-  layers: number[];
-}
-
-export interface ICollectionConfig {
-  groups: ILayerGroup[];
-  name: string;
-}
-
-export interface SVGTemplate {
-  text: string;
-  placeholders: {
-    width: string;
-    height: string;
-  };
-}
+import { ICollectionConfig, ICollections, Iid, IRandomImages, ISVGTemplate } from 'shared';
 
 const baseUrl = 'http://localhost:3002';
 
-export function getRandomImages(count: number, collection: string): Promise<string[]> {
+export function getRandomImages(count: number, collection: string): Promise<IRandomImages> {
   return fetch(baseUrl + `/images/random?count=${count}&collection=${collection}`).then(x => x.json());
 }
 
 export function generate(iid: Iid, filename?: string, size?: number) {
-  return fetch(baseUrl + '/image/save', {
+  return fetch(baseUrl + '/ima  ge/save', {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -36,7 +17,7 @@ export function generate(iid: Iid, filename?: string, size?: number) {
   });
 }
 
-export function preview(iid: Iid): Promise<SVGTemplate> {
+export function preview(iid: Iid): Promise<ISVGTemplate> {
   return fetch(baseUrl + '/image/preview', {
     headers: {
       Accept: 'application/json',
@@ -51,6 +32,6 @@ export function getCollectionConfig(collection: string): Promise<ICollectionConf
   return fetch(baseUrl + `/collection/` + collection).then(x => x.json());
 }
 
-export function getCollections(): Promise<string[]> {
+export function getCollections(): Promise<ICollections> {
   return fetch(baseUrl + `/collections/name`).then(x => x.json());
 }

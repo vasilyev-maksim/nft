@@ -3,6 +3,11 @@
 
 
 "@types/node@^17.0.25":
-  "integrity" "sha512-wANk6fBrUwdpY4isjWrKTufkrXdu1D2YHCot2fD/DfWxF5sMrVSA+KN7ydckvaTCh0HiqX9IVl0L5/ZoXg5M7w=="
-  "resolved" "https://registry.npmjs.org/@types/node/-/node-17.0.25.tgz"
-  "version" "17.0.25"
+  version "17.0.25"
+  resolved "https://registry.npmjs.org/@types/node/-/node-17.0.25.tgz"
+  integrity sha512-wANk6fBrUwdpY4isjWrKTufkrXdu1D2YHCot2fD/DfWxF5sMrVSA+KN7ydckvaTCh0HiqX9IVl0L5/ZoXg5M7w==
+
+superstruct@^0.15.4:
+  version "0.15.4"
+  resolved "https://registry.yarnpkg.com/superstruct/-/superstruct-0.15.4.tgz#e3381dd84ca07e704e19f69eda74eee1a5efb1f9"
+  integrity sha512-eOoMeSbP9ZJChNOm/9RYjE+F36rYR966AAqeG3xhQB02j2sfAUXDp4EQ/7bAOqnlJnuFDB8yvOu50SocvKpUEw==

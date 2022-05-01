@@ -5,7 +5,7 @@
     "module": "ESNext",
     "outDir": "./dist",
     "paths": {
-      "shared": ["../shared/src/client"]
+      "shared": ["../shared/src"]
     },
     "rootDir": "./src",
     "target": "ESNext"

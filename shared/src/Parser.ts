@@ -1,10 +1,3 @@
-export interface ICodec<S extends Schema> {
-  decode(str: string, schema: S): S;
-  encode(schema: S): string;
-}
-
-export type Schema = string | number | { [k: string]: Schema } | Schema[];
-
 // TODO: пропускать случай с одним листом ( не увеличивать вложенность)
 
 export class ParsingError extends Error {
@@ -13,7 +6,7 @@ export class ParsingError extends Error {
     public meta: {
       source?: string;
       chunk?: string;
-      schema?: Schema;
+      schema?: any;
     } = {},
   ) {
     super(message);
@@ -21,59 +14,53 @@ export class ParsingError extends Error {
   }
 }
 
-export class Parser<S extends Schema> implements ICodec<S> {
-  public constructor() {}
-
+export class Parser<S = any> {
   public decode(str: string, schema: S): S {
     const separatorChar = str[str.length - 1];
     const source = str.slice(0, -1);
     const depth = Parser.getSchemaDepth(schema);
-    console.log(depth);
 
-    function recursiveDecode(schema: S, chunk: string, currDepth = 0): any {
+    function recursiveDecode(_schema: S, chunk: string, currDepth = 0): any {
       const separator = separatorChar.repeat(depth - currDepth);
 
-      if (typeof schema === 'object') {
+      if (typeof _schema === 'object') {
         const chunks = chunk.split(separator);
 
-        if (Array.isArray(schema)) {
-          return chunks.map(chunk => recursiveDecode(schema[0] as any, chunk, currDepth + 1));
+        if (Array.isArray(_schema)) {
+          return chunks.map(chunk => recursiveDecode(_schema[0], chunk, currDepth + 1));
         } else {
-          Object.keys(schema)
+          return Object.keys(_schema)
             .sort()
-            .forEach((key, i) => {
-              const value = recursiveDecode(schema[key as any] as any, chunks[i], currDepth + 1);
-              schema[key] = value;
-            });
-          return schema;
+            .reduce((acc, key, i) => {
+              const s = _schema as Record<string, any>;
+              const value = recursiveDecode(s[key], chunks[i], currDepth + 1);
+              return { ...acc, [key]: value };
+            }, {});
         }
-      } else if (typeof schema === 'string') {
+      } else if (typeof _schema === 'string') {
         return chunk;
-      } else if (typeof schema === 'number') {
+      } else if (typeof _schema === 'number') {
         return Number(chunk);
       }
     }
 
-    recursiveDecode(schema, source);
-
-    return schema;
+    return recursiveDecode(schema, source);
   }
 
   public encode(schema: S): string {
     const separatorChar = ':'; // TODO: dynamic encoding
     const depth = Parser.getSchemaDepth(schema);
-    console.log(depth);
 
     function recursiveEncode(schema: S, currDepth = 0): string {
       const separator = separatorChar.repeat(depth - currDepth);
 
       if (typeof schema === 'object') {
         if (Array.isArray(schema)) {
-          return schema.map(x => recursiveEncode(x as any, currDepth + 1)).join(separator);
+          return schema.map(x => recursiveEncode(x, currDepth + 1)).join(separator);
         } else {
           return Object.keys(schema)
             .sort()
-            .map(key => recursiveEncode(schema[key as any] as any, currDepth + 1))
+            .map(key => recursiveEncode((schema as Record<string, any>)[key], currDepth + 1))
             .join(separator);
         }
       } else if (typeof schema === 'string') {
@@ -88,7 +75,7 @@ export class Parser<S extends Schema> implements ICodec<S> {
     return recursiveEncode(schema) + separatorChar;
   }
 
-  private static getSchemaDepth<T>(schema: Schema, res: number = 0): number {
+  private static getSchemaDepth<T>(schema: any, res: number = 0): number {
     if (Array.isArray(schema)) {
       return Math.max(...schema.map(s => this.getSchemaDepth(s, res + 1)));
     } else if (typeof schema === 'object') {
@@ -100,7 +87,27 @@ export class Parser<S extends Schema> implements ICodec<S> {
 }
 
 // const parser = new Parser();
-// const schema: Schema = {
+// const schema = {
+//   layers: [
+//     {
+//       id: 0,
+//       category: 0,
+//     },
+//   ],
+//   collection: '',
+//   width: 0,
+//   height: 0,
+//   version: 0,
+// };
+
+// const str = 'custom1:::300:::0:1::2:14::3:0::4:17::5:16::8:8::9:3::10:2::11:11::13:5::14:6:::44:::300:';
+// const d = parser.decode(str, schema);
+// const e = parser.encode(d);
+// console.log(d);
+// console.log(e);
+
+// const parser = new Parser();
+// const schema = {
 //   name: 'Maksim',
 //   surname: 'Vasilyev',
 //   address: {

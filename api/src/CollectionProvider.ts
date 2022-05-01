@@ -1,4 +1,4 @@
-import { Lazy } from 'shared';
+import { Lazy } from './Lazy';
 import { Collection } from './Collection';
 import { Directory } from './Directory';
 

@@ -31,19 +31,20 @@ export const LayersToolbar: React.FC<{
           onChange={e => setUpscale(parseInt(e.target.value) / 100)}
         />
       </div>
+      ``
       <div>
-        {data?.groups.map(g => (
+        {data?.categories.map(g => (
           <section className='bg-slate-200 p-4 mb-4 last:mb-0 rounded-xl' key={g.id}>
             <header className='mb-2'>
               {g.id} ({g.probability === 1 ? 'always presents' : 'probability ' + g.probability * 100 + '%'})
             </header>
             <div className='flex gap-2 flex-wrap cursor-pointer'>
-              {g.layers.map(layerId => (
+              {g.layers.map(layer => (
                 <Image
                   onClick={() =>
                     onSelect(_x => {
                       //TODO: extract this logic to IID ?
-                      const builder = new IidBuilder(_x);
+                      const builder = new IidBuilder().fromIid(_x!);
                       const alter = g.layers.find(l => _x?.contains(l));
 
                       if (alter) {
@@ -59,7 +60,7 @@ export const LayersToolbar: React.FC<{
                       return builder.build();
                     })
                   }
-                  iid={selected.getBuilder().withSingleLayer(layerId).build()}
+                  iid={new IidBuilder().fromIid(selected).withSingleLayer(layer).build()}
                   active={selected.contains(layerId)}
                   size={size}
                   key={layerId}

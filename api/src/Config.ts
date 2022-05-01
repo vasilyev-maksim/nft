@@ -1,9 +1,27 @@
 import { File, FileError } from './File';
 import { FidSource } from './Fid';
-import { ILayersConfig } from './Layer';
 
-export interface IConfig {
-  layers: ILayersConfig;
+export interface ISnapshot {
+  categories: {
+    id: number;
+    prefix: string;
+    probability: number;
+    order: number;
+  }[];
+  layers: {
+    filename: string;
+    id: number;
+    category: number;
+  }[];
+  version: number;
+  updatedAt: string;
+}
+
+export interface IUserConfig {
+  categories: {
+    prefix: string;
+    probability: number;
+  }[];
 }
 
 export class ConfigError extends FileError {
@@ -14,22 +32,32 @@ export class ConfigError extends FileError {
 }
 
 export class Config {
-  public constructor(public readonly configFile: File<IConfig>) {}
+  public constructor(private readonly configFile: File, private readonly snapshotFile: File) {}
 
-  public getConfig(): IConfig {
-    let config: IConfig;
-
+  public getSnapshot(): ISnapshot | undefined {
     try {
-      config = this.configFile!.readJson();
-    } catch (childError: any) {
-      throw new ConfigError(`Could not find valid json config in directory`, this.configFile, childError);
-    }
+      return this.snapshotFile.readJson<ISnapshot>();
+    } catch (childError: any) {}
+  }
 
-    // TODO: match against schema
-    if (typeof config.layers !== 'object' || Object.keys(config.layers).length === 0) {
-      throw new ConfigError(`No layers found in config`, this.configFile);
-    } else {
-      return config;
+  public updateSnapshot(snapshot: ISnapshot): void {
+    try {
+      return this.snapshotFile.write(JSON.stringify(snapshot, null, 2));
+    } catch (childError: any) {
+      throw new ConfigError(`Snapshot update failed`, this.snapshotFile, childError);
+    }
+  }
+
+  public getUserConfig(): IUserConfig {
+    try {
+      return {
+        categories: this.configFile.readLines().map(x => {
+          const [prefix, probability] = x.split(' ');
+          return { prefix, probability: Number(probability) };
+        }),
+      };
+    } catch (childError: any) {
+      throw new ConfigError(`Invalid config file`, this.configFile, childError);
     }
   }
 }

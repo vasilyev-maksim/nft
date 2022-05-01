@@ -12,7 +12,10 @@
   "scripts": {
     "start": "node start.js",
     "watch": "tsc -w start.ts",
-    "build": "tsc start.ts",
+    "build": "tsc && tsc -b -f -v",
     "clean": "npm run build && rm -rf ./logs/* ./client/node_modules ./client/yarn*.* ./client/package-lock.json ./api/node_modules ./api/yarn*.* ./api/package-lock.json"
+  },
+  "dependencies": {
+    "superstruct": "^0.15.4"
   }
 }

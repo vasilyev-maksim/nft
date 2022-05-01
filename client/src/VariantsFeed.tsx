@@ -6,7 +6,7 @@ import { CollectionSelector } from './CollectionSelector';
 import { useCollection } from './hooks';
 import { Image } from './Image';
 import { Loader } from './Loader';
-import { Iid } from 'shared';
+import { Iid, IidBuilder } from 'shared';
 
 export const VariantsFeed: React.FC<{
   onSelect: (val: Iid) => void;
@@ -23,7 +23,8 @@ export const VariantsFeed: React.FC<{
       refetchOnWindowFocus: false,
     },
   );
-  const variants = data?.pages.flatMap(x => x) ?? [];
+  const variants = data?.pages.flatMap(p => p.map(x => new IidBuilder().fromIdString(x).build())) ?? [];
+
   const parentRef = React.useRef<HTMLTableElement>(null);
   const rowVirtualizer = useVirtual({
     size: hasNextPage ? variants.length + 1 : variants.length,
@@ -48,7 +49,7 @@ export const VariantsFeed: React.FC<{
         <div style={{ height: `${rowVirtualizer.totalSize}px` }} className='w-full relative'>
           {rowVirtualizer.virtualItems.map(virtualRow => {
             const isLoaderRow = virtualRow.index > variants.length - 1;
-            const v = new Iid(variants[virtualRow.index]);
+            const v = variants[virtualRow.index];
 
             return (
               <div

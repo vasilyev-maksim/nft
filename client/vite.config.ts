@@ -12,7 +12,7 @@ export default defineConfig(() => {
     plugins: [react()],
     resolve: {
       alias: {
-        shared: path.resolve(__dirname, '../shared/dist/client/client'),
+        shared: path.resolve(__dirname, '../shared/dist/client'),
       },
     },
   };

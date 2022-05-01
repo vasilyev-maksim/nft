@@ -1,19 +1,18 @@
-import { Id, Iid } from 'shared';
-import { Layer } from './Layer';
+import { Iid, Layer } from 'shared';
 
-export class LayerGroup {
-  public constructor(public readonly id: Id, public readonly probability: number, private layers: Layer[]) {}
+export class Category {
+  public constructor(public readonly id: number, public readonly probability: number, private layers: Layer[]) {}
 
   public getRandom(): Layer | null {
     return Math.random() <= this.probability ? this.layers[Math.floor(Math.random() * this.layers.length)] : null;
   }
 
-  public getById(id: Id): Layer | undefined {
+  public getById(id: number): Layer | undefined {
     return this.layers.find(l => l.id === id);
   }
 
   public getOneOf(iid: Iid): Layer | undefined {
-    return this.layers.find(l => iid.contains(l.id));
+    return this.layers.find(l => iid.contains(l));
   }
 
   public getAll(): Layer[] {

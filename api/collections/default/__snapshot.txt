@@ -1,0 +1,649 @@
+{
+  "categories": [
+    {
+      "id": 0,
+      "prefix": "back",
+      "probability": 1,
+      "order": 0
+    },
+    {
+      "id": 1,
+      "prefix": "legs",
+      "probability": 1,
+      "order": 1
+    },
+    {
+      "id": 2,
+      "prefix": "shoes",
+      "probability": 1,
+      "order": 2
+    },
+    {
+      "id": 3,
+      "prefix": "arms",
+      "probability": 1,
+      "order": 3
+    },
+    {
+      "id": 4,
+      "prefix": "tors",
+      "probability": 1,
+      "order": 4
+    },
+    {
+      "id": 5,
+      "prefix": "top",
+      "probability": 1,
+      "order": 5
+    },
+    {
+      "id": 6,
+      "prefix": "necklace",
+      "probability": 0.3,
+      "order": 6
+    },
+    {
+      "id": 7,
+      "prefix": "scarf",
+      "probability": 0.1,
+      "order": 7
+    },
+    {
+      "id": 8,
+      "prefix": "jacket",
+      "probability": 0.3,
+      "order": 8
+    },
+    {
+      "id": 9,
+      "prefix": "face",
+      "probability": 1,
+      "order": 9
+    },
+    {
+      "id": 10,
+      "prefix": "eyes",
+      "probability": 1,
+      "order": 10
+    },
+    {
+      "id": 11,
+      "prefix": "lips",
+      "probability": 1,
+      "order": 11
+    },
+    {
+      "id": 12,
+      "prefix": "tattoo",
+      "probability": 0.5,
+      "order": 12
+    },
+    {
+      "id": 13,
+      "prefix": "hair",
+      "probability": 1,
+      "order": 13
+    },
+    {
+      "id": 14,
+      "prefix": "headset",
+      "probability": 1,
+      "order": 14
+    },
+    {
+      "id": 15,
+      "prefix": "glasses",
+      "probability": 0.3,
+      "order": 15
+    }
+  ],
+  "layers": [
+    {
+      "filename": "arms1",
+      "id": 0,
+      "category": 3
+    },
+    {
+      "filename": "back1",
+      "id": 1,
+      "category": 0
+    },
+    {
+      "filename": "back10",
+      "id": 2,
+      "category": 0
+    },
+    {
+      "filename": "back11",
+      "id": 3,
+      "category": 0
+    },
+    {
+      "filename": "back12",
+      "id": 4,
+      "category": 0
+    },
+    {
+      "filename": "back13",
+      "id": 5,
+      "category": 0
+    },
+    {
+      "filename": "back14",
+      "id": 6,
+      "category": 0
+    },
+    {
+      "filename": "back15",
+      "id": 7,
+      "category": 0
+    },
+    {
+      "filename": "back2",
+      "id": 8,
+      "category": 0
+    },
+    {
+      "filename": "back3",
+      "id": 9,
+      "category": 0
+    },
+    {
+      "filename": "back4",
+      "id": 10,
+      "category": 0
+    },
+    {
+      "filename": "back5",
+      "id": 11,
+      "category": 0
+    },
+    {
+      "filename": "back6",
+      "id": 12,
+      "category": 0
+    },
+    {
+      "filename": "back7",
+      "id": 13,
+      "category": 0
+    },
+    {
+      "filename": "back8",
+      "id": 14,
+      "category": 0
+    },
+    {
+      "filename": "back9",
+      "id": 15,
+      "category": 0
+    },
+    {
+      "filename": "eyes1",
+      "id": 16,
+      "category": 10
+    },
+    {
+      "filename": "eyes2",
+      "id": 17,
+      "category": 10
+    },
+    {
+      "filename": "eyes3",
+      "id": 18,
+      "category": 10
+    },
+    {
+      "filename": "eyes4",
+      "id": 19,
+      "category": 10
+    },
+    {
+      "filename": "eyes5",
+      "id": 20,
+      "category": 10
+    },
+    {
+      "filename": "face1",
+      "id": 21,
+      "category": 9
+    },
+    {
+      "filename": "face2",
+      "id": 22,
+      "category": 9
+    },
+    {
+      "filename": "face3",
+      "id": 23,
+      "category": 9
+    },
+    {
+      "filename": "face4",
+      "id": 24,
+      "category": 9
+    },
+    {
+      "filename": "face5",
+      "id": 25,
+      "category": 9
+    },
+    {
+      "filename": "face6",
+      "id": 26,
+      "category": 9
+    },
+    {
+      "filename": "face7",
+      "id": 27,
+      "category": 9
+    },
+    {
+      "filename": "face8",
+      "id": 28,
+      "category": 9
+    },
+    {
+      "filename": "face9",
+      "id": 29,
+      "category": 9
+    },
+    {
+      "filename": "glasses1",
+      "id": 30,
+      "category": 15
+    },
+    {
+      "filename": "glasses3",
+      "id": 31,
+      "category": 15
+    },
+    {
+      "filename": "glasses4",
+      "id": 32,
+      "category": 15
+    },
+    {
+      "filename": "glasses5",
+      "id": 33,
+      "category": 15
+    },
+    {
+      "filename": "hair1",
+      "id": 34,
+      "category": 13
+    },
+    {
+      "filename": "hair10",
+      "id": 35,
+      "category": 13
+    },
+    {
+      "filename": "hair11",
+      "id": 36,
+      "category": 13
+    },
+    {
+      "filename": "hair12",
+      "id": 37,
+      "category": 13
+    },
+    {
+      "filename": "hair2",
+      "id": 38,
+      "category": 13
+    },
+    {
+      "filename": "hair3",
+      "id": 39,
+      "category": 13
+    },
+    {
+      "filename": "hair4",
+      "id": 40,
+      "category": 13
+    },
+    {
+      "filename": "hair5",
+      "id": 41,
+      "category": 13
+    },
+    {
+      "filename": "hair6",
+      "id": 42,
+      "category": 13
+    },
+    {
+      "filename": "hair7",
+      "id": 43,
+      "category": 13
+    },
+    {
+      "filename": "hair8",
+      "id": 44,
+      "category": 13
+    },
+    {
+      "filename": "hair9",
+      "id": 45,
+      "category": 13
+    },
+    {
+      "filename": "headset_x5F_hat2",
+      "id": 46,
+      "category": 14
+    },
+    {
+      "filename": "headset_x5F_hat3",
+      "id": 47,
+      "category": 14
+    },
+    {
+      "filename": "headset_x5F_hat4",
+      "id": 48,
+      "category": 14
+    },
+    {
+      "filename": "headset_x5F_headphone1",
+      "id": 49,
+      "category": 14
+    },
+    {
+      "filename": "headset_x5F_ushi1",
+      "id": 50,
+      "category": 14
+    },
+    {
+      "filename": "headset_x5F_ushi2",
+      "id": 51,
+      "category": 14
+    },
+    {
+      "filename": "headset_x5F_ushi3",
+      "id": 52,
+      "category": 14
+    },
+    {
+      "filename": "headset_x5F_ushi4",
+      "id": 53,
+      "category": 14
+    },
+    {
+      "filename": "headset_x5F_ushi5",
+      "id": 54,
+      "category": 14
+    },
+    {
+      "filename": "headset_x5F_ushi6",
+      "id": 55,
+      "category": 14
+    },
+    {
+      "filename": "headset_x5F_ushi7",
+      "id": 56,
+      "category": 14
+    },
+    {
+      "filename": "headset_x5F_ushi8",
+      "id": 57,
+      "category": 14
+    },
+    {
+      "filename": "jacket1",
+      "id": 58,
+      "category": 8
+    },
+    {
+      "filename": "jacket2",
+      "id": 59,
+      "category": 8
+    },
+    {
+      "filename": "jacket3",
+      "id": 60,
+      "category": 8
+    },
+    {
+      "filename": "jacket4",
+      "id": 61,
+      "category": 8
+    },
+    {
+      "filename": "jacket5",
+      "id": 62,
+      "category": 8
+    },
+    {
+      "filename": "legs",
+      "id": 63,
+      "category": 1
+    },
+    {
+      "filename": "lips1",
+      "id": 64,
+      "category": 11
+    },
+    {
+      "filename": "lips2",
+      "id": 65,
+      "category": 11
+    },
+    {
+      "filename": "lips3",
+      "id": 66,
+      "category": 11
+    },
+    {
+      "filename": "lips4",
+      "id": 67,
+      "category": 11
+    },
+    {
+      "filename": "lips5",
+      "id": 68,
+      "category": 11
+    },
+    {
+      "filename": "lips6",
+      "id": 69,
+      "category": 11
+    },
+    {
+      "filename": "lips7",
+      "id": 70,
+      "category": 11
+    },
+    {
+      "filename": "lips8",
+      "id": 71,
+      "category": 11
+    },
+    {
+      "filename": "lips9",
+      "id": 72,
+      "category": 11
+    },
+    {
+      "filename": "necklace1",
+      "id": 73,
+      "category": 6
+    },
+    {
+      "filename": "necklace10",
+      "id": 74,
+      "category": 6
+    },
+    {
+      "filename": "necklace2",
+      "id": 75,
+      "category": 6
+    },
+    {
+      "filename": "necklace3",
+      "id": 76,
+      "category": 6
+    },
+    {
+      "filename": "necklace4",
+      "id": 77,
+      "category": 6
+    },
+    {
+      "filename": "necklace6",
+      "id": 78,
+      "category": 6
+    },
+    {
+      "filename": "necklace7",
+      "id": 79,
+      "category": 6
+    },
+    {
+      "filename": "necklace8",
+      "id": 80,
+      "category": 6
+    },
+    {
+      "filename": "necklace9",
+      "id": 81,
+      "category": 6
+    },
+    {
+      "filename": "scarf1",
+      "id": 82,
+      "category": 7
+    },
+    {
+      "filename": "shoes1",
+      "id": 83,
+      "category": 2
+    },
+    {
+      "filename": "shoes2",
+      "id": 84,
+      "category": 2
+    },
+    {
+      "filename": "shoes3",
+      "id": 85,
+      "category": 2
+    },
+    {
+      "filename": "shoes4",
+      "id": 86,
+      "category": 2
+    },
+    {
+      "filename": "shoes5",
+      "id": 87,
+      "category": 2
+    },
+    {
+      "filename": "shoes6",
+      "id": 88,
+      "category": 2
+    },
+    {
+      "filename": "shoes7",
+      "id": 89,
+      "category": 2
+    },
+    {
+      "filename": "shoes8",
+      "id": 90,
+      "category": 2
+    },
+    {
+      "filename": "tattoo1",
+      "id": 91,
+      "category": 12
+    },
+    {
+      "filename": "tattoo2",
+      "id": 92,
+      "category": 12
+    },
+    {
+      "filename": "tattoo3",
+      "id": 93,
+      "category": 12
+    },
+    {
+      "filename": "tattoo4",
+      "id": 94,
+      "category": 12
+    },
+    {
+      "filename": "tattoo5",
+      "id": 95,
+      "category": 12
+    },
+    {
+      "filename": "tattoo6",
+      "id": 96,
+      "category": 12
+    },
+    {
+      "filename": "tattoo8",
+      "id": 97,
+      "category": 12
+    },
+    {
+      "filename": "top1",
+      "id": 98,
+      "category": 5
+    },
+    {
+      "filename": "top10",
+      "id": 99,
+      "category": 5
+    },
+    {
+      "filename": "top2",
+      "id": 100,
+      "category": 5
+    },
+    {
+      "filename": "top3",
+      "id": 101,
+      "category": 5
+    },
+    {
+      "filename": "top4",
+      "id": 102,
+      "category": 5
+    },
+    {
+      "filename": "top5",
+      "id": 103,
+      "category": 5
+    },
+    {
+      "filename": "top6",
+      "id": 104,
+      "category": 5
+    },
+    {
+      "filename": "top7",
+      "id": 105,
+      "category": 5
+    },
+    {
+      "filename": "top8",
+      "id": 106,
+      "category": 5
+    },
+    {
+      "filename": "top9",
+      "id": 107,
+      "category": 5
+    },
+    {
+      "filename": "tors",
+      "id": 108,
+      "category": 4
+    }
+  ],
+  "version": 42,
+  "updatedAt": "2022-05-01T15:03:37.598Z"
+}

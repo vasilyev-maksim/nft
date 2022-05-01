@@ -48,6 +48,13 @@ export class File<ParsedJson = unknown> {
     }
   }
 
+  public readLines(): string[] {
+    return this.read()
+      .split(/\r?\n/gm)
+      .map(x => x.trim())
+      .filter(Boolean);
+  }
+
   public write(content: string): void {
     writeFileSync(this.fid.path, content);
   }

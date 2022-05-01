@@ -10,6 +10,7 @@
     "skipLibCheck": true,
     "strict": true,
     "useDefineForClassFields": true,
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "strictNullChecks": true
   }
 }
