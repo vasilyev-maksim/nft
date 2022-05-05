@@ -32,7 +32,7 @@ export class Collection {
     // TODO: implemetn proper files watch
     dir.watch(() => {
       console.log(this.name + ' collection root dir updated, reinitializing collection');
-      // return this.init();
+      return this.init();
     });
   }
 

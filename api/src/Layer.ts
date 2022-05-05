@@ -8,6 +8,12 @@ export class Layer extends LayerData {
 
   public get svgBody(): string {
     const content = this.file.read();
-    return [...content.replace(/\r?\n/gm, '').matchAll(/<svg(.*?)>(.*?)<\/svg/gm)][0][2];
+    const temp = content.replace(/\r?\n/gm, '').match(/<svg(.*?)>(.*?)<\/svg/m)?.[2] ?? '';
+    const map =
+      [...temp.matchAll(/(\..*?)\s*?\{.*?}/g)].map(x => x[1].split(',').map(z => z.trim())).flatMap(x => x) ?? '';
+    const t = map.reduce((str, cls) => {
+      return str.split(cls.slice(1)).join(cls.slice(1) + Math.round(Math.random() * 1000));
+    }, temp);
+    return t;
   }
 }

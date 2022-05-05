@@ -29,7 +29,7 @@ export const Selector = <T extends Object>(props: SelectorProps<T, string>): Rea
             'bg-gray-200': selected && !onlyOneRendered,
           })}
           onClick={handleClick}>
-          [<Marquee length={20}>{item.body}</Marquee>]
+          [<Marquee length={10}>{item.body}</Marquee>]
         </span>
       )}
     />

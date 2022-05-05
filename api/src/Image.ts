@@ -25,7 +25,7 @@ export class Image {
 
   public toSvgString(width: number | string, height: number | string) {
     return (
-      `<svg width="${width}" height="${height}" viewBox="0 0 1660 1660" fill="none" xmlns="http://www.w3.org/2000/svg">` +
+      `<svg width="${width}" height="${height}" viewBox="0 0 1660 1660" xmlns="http://www.w3.org/2000/svg">` +
       this.layers.map(x => x.svgBody).join('\n') +
       '</svg>'
     );

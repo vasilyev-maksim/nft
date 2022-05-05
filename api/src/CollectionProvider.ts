@@ -8,9 +8,9 @@ export class CollectionProvider {
 
   public constructor(private readonly dir: Directory) {
     this.dir.watch(() => {
-      console.log('================================');
-
-      return this.collections.invalidate();
+      try {
+        this.collections.invalidate();
+      } catch {}
     });
   }
 
