@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { CollectionProvider } from './CollectionProvider';
+import { CollectionManager } from './CollectionManager';
 import { join } from 'path';
 // import morgan from 'morgan';
 import { ICollectionConfig, ISVGTemplate, IidBuilder, IRandomImages, ICollections, Iid } from 'shared';
@@ -18,7 +18,7 @@ declare global {
 }
 
 const collectionsDir = new Directory(join(__dirname, '..', 'collections'));
-const collections = new CollectionProvider(collectionsDir);
+const collections = new CollectionManager(collectionsDir);
 
 // middlewares
 function populateRequest(req: Request, res: Response, next: NextFunction) {

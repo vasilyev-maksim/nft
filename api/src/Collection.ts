@@ -1,5 +1,5 @@
 import { Layer } from './Layer';
-import { CategoryProvider } from './CategoryProvider';
+import { CategoryManager } from './CategoryManager';
 import { Category } from './Category';
 import { Image } from './Image';
 import { Iid, IidBuilder } from 'shared';
@@ -13,7 +13,7 @@ export class Collection {
 
   private categories: Category[] = [];
   private version: number = 0;
-  private readonly categoryProvider: CategoryProvider;
+  private readonly categoryProvider: CategoryManager;
   private readonly resultsDir: Directory;
 
   public get name() {
@@ -26,7 +26,7 @@ export class Collection {
     const config = new Config(configFile, snapshotFile);
 
     this.resultsDir = this.dir.getDirectoryByName(Collection.RESULTS_DIR);
-    this.categoryProvider = new CategoryProvider(config);
+    this.categoryProvider = new CategoryManager(config);
 
     this.init();
     // TODO: implemetn proper files watch
