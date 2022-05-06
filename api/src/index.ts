@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { CollectionManager } from './CollectionManager';
+import { NFTGenerator } from './NFTGenerator';
 import { join } from 'path';
 // import morgan from 'morgan';
 import { ICollectionConfig, ISVGTemplate, IidBuilder, IRandomImages, ICollections, Iid } from 'shared';
@@ -18,14 +18,14 @@ declare global {
 }
 
 const collectionsDir = new Directory(join(__dirname, '..', 'collections'));
-const collections = new CollectionManager(collectionsDir);
+const generator = new NFTGenerator(collectionsDir);
 
 // middlewares
 function populateRequest(req: Request, res: Response, next: NextFunction) {
   try {
     req.iid = req.body.iid ? new IidBuilder().fromIdString(req.body.iid).build() : undefined;
     const collectionId = req.iid?.collection || req.body.collection || req.query.collection || req.params.collection;
-    req.collection = collections.findCollection(collectionId);
+    req.collection = generator.findCollection(collectionId);
   } catch (e) {}
   next();
 }
@@ -48,7 +48,7 @@ app.get('/collection', (req, res) => {
 });
 
 app.get('/collections/name', (req, res) => {
-  res.json(collections.getCollectionNames() as ICollections);
+  res.json(generator.getCollectionNames() as ICollections);
 });
 
 app.post('/image/save', (req, res) => {

@@ -3,6 +3,7 @@ import { parse } from 'path';
 import { AppError } from 'shared';
 import { Directory } from './Directory';
 import { Fid, FidSource, FidSourceExcept } from './Fid';
+import crypto from 'crypto';
 
 export class FileError extends AppError {
   public constructor(public readonly message: string, public readonly sourse: FidSource, childError?: Error) {
@@ -29,6 +30,21 @@ export class File<ParsedJson = unknown> {
 
   public watch(listener: () => void, interval = 1000): void {
     watchFile(this.fid.path, { interval }, listener);
+  }
+
+  public watchHashChange(callback: (hash?: string) => void, interval = 1000) {
+    this.watch(() => {
+      callback(this.getContentHash());
+    }, interval);
+  }
+
+  public getContentHash(): string | undefined {
+    try {
+      const content = this.read();
+      const hash = crypto.createHash('md5');
+      hash.update(content);
+      return hash.digest('hex');
+    } catch {}
   }
 
   public read(): string {
