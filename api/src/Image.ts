@@ -1,5 +1,6 @@
 import { Layer } from './Layer';
 import { File } from './File';
+import sharp from 'sharp';
 
 export class Image {
   private static WIDTH_PLACEHOLDER = '__[W]__';
@@ -11,7 +12,13 @@ export class Image {
     file.write(this.toSvgString(width, height));
   }
 
-  public saveToPng(): void {}
+  public async saveToPng(width: number, height: number, file: File): Promise<void> {
+    const tempName = Math.round(Math.random() * 100) + '.svg';
+    const tempFile = new File(file.fid.getSiblingFid(tempName));
+    this.saveToSvg(width, height, tempFile);
+    await sharp(tempFile.fid.path).resize(width, height).png().toFile(file.fid.path);
+    tempFile.delete();
+  }
 
   public toSvgTemplate() {
     return {
@@ -26,7 +33,7 @@ export class Image {
   public toSvgString(width: number | string, height: number | string) {
     return (
       `<svg width="${width}" height="${height}" viewBox="0 0 1660 1660" xmlns="http://www.w3.org/2000/svg">` +
-      this.layers.map(x => x.svgBody).join('\n') +
+      this.layers.map(x => x.getSvgBody()).join('\n') +
       '</svg>'
     );
   }

@@ -3,7 +3,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import { NFTGenerator } from './NFTGenerator';
 import { join } from 'path';
-// import morgan from 'morgan';
+import morgan from 'morgan';
 import { ICollectionConfig, ISVGTemplate, IidBuilder, IRandomImages, ICollections, Iid } from 'shared';
 import { Directory } from './Directory';
 import { Collection } from './Collection';
@@ -26,14 +26,16 @@ function populateRequest(req: Request, res: Response, next: NextFunction) {
     req.iid = req.body.iid ? new IidBuilder().fromIdString(req.body.iid).build() : undefined;
     const collectionId = req.iid?.collection || req.body.collection || req.query.collection || req.params.collection;
     req.collection = generator.findCollection(collectionId);
-  } catch (e) {}
+  } catch (e) {
+    console.log(e);
+  }
   next();
 }
 
 const app = express();
 const port = 3002;
 
-// app.use(morgan('dev'));
+app.use(morgan('dev'));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(
@@ -53,7 +55,8 @@ app.get('/collections/name', (req, res) => {
 
 app.post('/image/save', (req, res) => {
   const filename = req.body.filename || req.iid!.id;
-  req.collection!.saveImage(req.iid!, filename);
+
+  req.collection!.saveImage(req.iid!, filename, req.body.format);
   res.send(200);
 });
 

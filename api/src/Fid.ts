@@ -34,6 +34,10 @@ export class Fid {
     return new Fid(this.path, name);
   }
 
+  public getSiblingFid(name: string): Fid {
+    return new Fid(this.root, name);
+  }
+
   public static from(source: FidSource): Fid {
     return source instanceof Directory ? source.fid : source instanceof File ? source.fid : new Fid(source);
   }

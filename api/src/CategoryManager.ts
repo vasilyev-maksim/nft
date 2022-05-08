@@ -22,7 +22,7 @@ export class CategoryManager {
       .map(file => {
         const old = snapshot?.layers.find(x => x.filename === file.name);
         const category = categories.find(x => file.name.startsWith(x.prefix));
-        return category ? new Layer(old?.id ?? lid++, category.id, file) : null;
+        return category ? new Layer(file, old?.id ?? lid++, category.id) : null;
       })
       .filter(Boolean) as Layer[];
 

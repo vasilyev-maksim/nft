@@ -1,4 +1,4 @@
-import { mkdir, mkdirSync, readFileSync, watchFile, writeFileSync } from 'fs';
+import { mkdir, mkdirSync, readFileSync, watchFile, writeFileSync, unlinkSync } from 'fs';
 import { parse } from 'path';
 import { AppError } from 'shared';
 import { Directory } from './Directory';
@@ -74,5 +74,13 @@ export class File<ParsedJson = unknown> {
   public write(content: string): void {
     mkdirSync(this.fid.root, { recursive: true });
     writeFileSync(this.fid.path, content);
+  }
+
+  public writeJson(content: unknown): void {
+    this.write(JSON.stringify(content));
+  }
+
+  public delete(): void {
+    unlinkSync(this.fid.path);
   }
 }
