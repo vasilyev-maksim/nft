@@ -30,13 +30,14 @@ export const Image: React.FC<React.HTMLAttributes<HTMLDivElement> & { iid: Iid; 
       className={classNames(className, {
         'ring-blue-400 ring': active,
       })}>
-      {__html ? (
+      <div className='text-center text-gray-500' style={{ width: size, height: size }}>
+        Loading...
+      </div>
+      {/* {__html ? (
         <div {...(__html ? { dangerouslySetInnerHTML: { __html } } : {})} />
       ) : (
-        <div className='text-center text-gray-500' style={{ width: size, height: size }}>
-          Loading...
-        </div>
-      )}
+        
+      )} */}
     </div>
   );
 };

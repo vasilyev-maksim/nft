@@ -1,7 +1,7 @@
-export type ILayer = {
+export interface ILayer {
   id: number;
   category: number;
-};
+}
 
 export class Layer implements ILayer {
   public constructor(public readonly id: number, public readonly category: number) {}

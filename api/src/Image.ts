@@ -13,11 +13,15 @@ export class Image {
   }
 
   public async saveToPng(width: number, height: number, file: File): Promise<void> {
-    const tempName = Math.round(Math.random() * 100) + '.svg';
-    const tempFile = new File(file.fid.getSiblingFid(tempName));
-    this.saveToSvg(width, height, tempFile);
-    await sharp(tempFile.fid.path).resize(width, height).png().toFile(file.fid.path);
-    tempFile.delete();
+    try {
+      const tempName = Math.round(Math.random() * 100) + '.svg';
+      const tempFile = new File(file.fid.getSiblingFid(tempName));
+      this.saveToSvg(width, height, tempFile);
+      await sharp(tempFile.fid.path).resize(width, height).png().toFile(file.fid.path);
+      tempFile.delete();
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   public toSvgTemplate() {

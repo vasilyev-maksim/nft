@@ -1,4 +1,5 @@
-import { Iid, Layer } from 'shared';
+import { Iid } from 'shared';
+import { Layer } from './Layer';
 
 export class Category {
   public constructor(

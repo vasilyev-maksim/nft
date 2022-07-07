@@ -18,7 +18,7 @@ export class NFTGenerator {
     return this.collections.value.find(x => x.name === name);
   }
 
-  private getCollections(): Collection[] {
+  public getCollections(): Collection[] {
     return this.dir.readDirectoriesOnly().map(dir => new Collection(dir));
   }
 

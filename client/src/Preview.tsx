@@ -17,9 +17,7 @@ export const Preview: React.FC<{ iid?: Iid }> = ({ iid }) => {
     const sizeNum = parseInt(size) || DEFAULT_SIZE;
     const iidWithSize = new IidBuilder().fromIid(iid!).withSize(sizeNum, sizeNum).build();
 
-    generate(iidWithSize, filename, format).then(() => {
-      alert(`${filename} image saved!`);
-    });
+    generate(iidWithSize, filename, format);
   };
 
   return (

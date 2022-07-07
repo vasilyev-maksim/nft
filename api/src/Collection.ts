@@ -29,7 +29,7 @@ export class Collection {
     this.categoryProvider = new CategoryManager(config);
 
     this.init();
-    // TODO: implemetn proper files watch
+    // TODO: implement proper files watch
     dir.watch(() => {
       console.log(this.name + ' collection root dir updated, reinitializing collection');
       return this.init();
@@ -69,5 +69,9 @@ export class Collection {
     } else if (format === 'png') {
       image?.saveToPng(iid.width, iid.width, file);
     }
+  }
+
+  public getCategories() {
+    return this.categories;
   }
 }
