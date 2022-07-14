@@ -22,7 +22,7 @@ export class Layer extends LayerData {
     this.snapshotFile = new File(file.fid.getSiblingFid(snapshotFilename));
     const snapshotJson = this.getSnapshotJson();
     this.snapshotFile.writeJson(snapshotJson);
-    new Image([this]).saveToPng(1000, 1000, new File(file.fid.getSiblingFid(pngFilename)));
+    // new Image([this]).saveToPng(1000, 1000, new File(file.fid.getSiblingFid(pngFilename)));
 
     this.file.watchHashChange(hash => {
       if (hash) {

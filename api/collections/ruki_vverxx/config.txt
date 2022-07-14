@@ -1,0 +1,16 @@
+back 1
+legs 1
+tors 1
+shoes 1
+arms 1
+top 1
+necklace 0.3
+scarf 0.1
+jacket 0.3
+face 1
+eyes 1
+lips 1
+tattoo 0.5
+hair 1
+headset 1
+glasses 0.3

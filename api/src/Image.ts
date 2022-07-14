@@ -41,4 +41,8 @@ export class Image {
       '</svg>'
     );
   }
+
+  // public toPngStream(width: number, height: number) {
+  //   await sharp(tempFile.fid.path).resize(width, height).png();
+  // }
 }

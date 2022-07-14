@@ -3,6 +3,7 @@ import * as React from 'react';
 import { useQuery } from 'react-query';
 import { preview } from './api';
 import { Iid } from 'shared';
+import { useCollection } from './hooks';
 
 export const Image: React.FC<React.HTMLAttributes<HTMLDivElement> & { iid: Iid; size: number; active?: boolean }> = ({
   iid,
@@ -16,6 +17,7 @@ export const Image: React.FC<React.HTMLAttributes<HTMLDivElement> & { iid: Iid; 
     staleTime: Infinity,
     cacheTime: Infinity,
   });
+  const { selectedCollection } = useCollection();
   const __html = React.useMemo(() => {
     return isLoading
       ? null

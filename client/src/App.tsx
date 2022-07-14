@@ -8,9 +8,9 @@ import { VariantsFeed } from './VariantsFeed';
 
 export const App: React.FC<{ collections: string[] }> = ({ collections }) => {
   const [iid, setIid] = React.useState<Iid | undefined>();
-  const persistedCollection = localStorage.getItem('collection');
+  const savedCollectionChoice = localStorage.getItem('collection');
   const [collection, setCollection] = React.useState(
-    persistedCollection && collections.includes(persistedCollection) ? persistedCollection : collections[0],
+    savedCollectionChoice && collections.includes(savedCollectionChoice) ? savedCollectionChoice : collections[0],
   );
   const collectionContextValue = React.useMemo(() => {
     return {
