@@ -38,11 +38,9 @@ sharp({
   },
 })
   .png()
-  .composite([
-    { input: bg1.fid.getSiblingFid(bg1.name + '.png').path },
-    { input: face1.fid.getSiblingFid(face1.name + '.png').path },
-  ])
+  .composite([{ input: bg1.withExt('png').path }, { input: face1.withExt('png').path }])
   .toFile('./test.png')
   .catch(x => console.error('>--- ', x))
   .then(() => console.log('end'));
-  find /collections -type f -name '^\d+\.svg$'
+
+// find ./collections -type f -name '[0-9]*.svg' -delete

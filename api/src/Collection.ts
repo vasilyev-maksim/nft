@@ -17,7 +17,7 @@ export class Collection {
   private readonly resultsDir: Directory;
 
   public get name() {
-    return this.dir.fid.name;
+    return this.dir.name;
   }
 
   public constructor(private readonly dir: Directory) {

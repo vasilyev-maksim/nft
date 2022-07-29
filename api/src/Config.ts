@@ -1,5 +1,4 @@
 import { File, FileError } from './File';
-import { FidSource } from './Fid';
 
 export interface ISnapshot {
   categories: {
@@ -25,7 +24,7 @@ export interface IUserConfig {
 }
 
 export class ConfigError extends FileError {
-  public constructor(message: string, sourse: FidSource, childError?: Error) {
+  public constructor(message: string, sourse: File, childError?: Error) {
     super(message, sourse, childError);
     this.name = 'ConfigError';
   }

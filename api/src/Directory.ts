@@ -1,27 +1,32 @@
 import { readdirSync, watchFile } from 'fs';
-import { Fid, FidSourceExcept } from './Fid';
+import { join, resolve, basename } from 'path';
 import { File } from './File';
 
 // TODO: custom error class
 
-export type DirectorySource = FidSourceExcept<File>;
-
 export class Directory {
-  public readonly fid: Fid;
+  public readonly path: string;
 
-  public constructor(source: DirectorySource) {
-    this.fid = Fid.from(source);
+  public constructor(source: string | Directory) {
+    this.path = source instanceof Directory ? source.path : source;
+  }
+
+  public get name() {
+    return basename(this.path);
+  }
+
+  public getParentDir(): Directory {
+    return new Directory(resolve(this.path, '..'));
   }
 
   public read(): (File | Directory)[] {
-    return readdirSync(this.fid.path, { withFileTypes: true })
+    return readdirSync(this.path, { withFileTypes: true })
       .map(x => {
         if (!x.name.startsWith('.')) {
-          const childFid = this.fid.getChildFid(x.name);
           if (x.isDirectory()) {
-            return new Directory(childFid);
+            return this.getDirectoryByName(x.name);
           } else if (x.isFile()) {
-            return new File(childFid);
+            return this.getFileByName(x.name);
           }
         }
 
@@ -40,14 +45,14 @@ export class Directory {
 
   public watch(listener: () => void, interval = 1000): void {
     // TODO: work only for files
-    watchFile(this.fid.path, { interval }, listener);
+    watchFile(this.path, { interval }, listener);
   }
 
   public getFileByName(name: string): File {
-    return new File(this.fid.getChildFid(name));
+    return new File(this.path, name);
   }
 
   public getDirectoryByName(name: string): Directory {
-    return new Directory(this.fid.getChildFid(name));
+    return new Directory(join(this.path, name));
   }
 }

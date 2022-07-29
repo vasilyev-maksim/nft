@@ -15,9 +15,9 @@ export class Image {
   public async saveToPng(width: number, height: number, file: File): Promise<void> {
     try {
       const tempName = Math.round(Math.random() * 100) + '.svg';
-      const tempFile = new File(file.fid.getSiblingFid(tempName));
+      const tempFile = file.getSiblingFile(tempName);
       this.saveToSvg(width, height, tempFile);
-      await sharp(tempFile.fid.path).resize(width, height).png().toFile(file.fid.path);
+      await sharp(tempFile.path).resize(width, height).png().toFile(file.path);
       tempFile.delete();
     } catch (err) {
       console.error(err);

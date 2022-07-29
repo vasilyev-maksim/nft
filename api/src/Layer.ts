@@ -1,6 +1,5 @@
 import { File } from './File';
 import { Layer as LayerData } from 'shared';
-import { Fid } from './Fid';
 import { Image } from './Image';
 
 interface ILayerSnapshotJSON {
@@ -16,10 +15,8 @@ export class Layer extends LayerData {
 
   public constructor(public readonly file: File, id: number, category: number) {
     super(id, category);
-    // TODO: разделить наконец Fid и Did
-    const snapshotFilename = file.fid.name.replace(/\.svg$/, '.snapshot.json');
-    const pngFilename = file.fid.name.replace(/\.svg$/, '.png'); //TODO: вынести в метод "file.fid.name.replace(/\.svg$/"
-    this.snapshotFile = new File(file.fid.getSiblingFid(snapshotFilename));
+    const pngFilename = file.withExt('png');
+    this.snapshotFile = file.withExt('snapshot.json');
     const snapshotJson = this.getSnapshotJson();
     this.snapshotFile.writeJson(snapshotJson);
     // new Image([this]).saveToPng(1000, 1000, new File(file.fid.getSiblingFid(pngFilename)));
