@@ -42,9 +42,11 @@ app.get('/collections/name', (req, res) => {
 });
 
 app.post('/image/save', (req, res) => {
-  const filename = req.body.filename || req.iid!.id;
+  const iid = req.body.iid ? new IidBuilder().fromIdString(req.body.iid).build() : undefined;
+  const collection = iid?.collection ? generator.findCollection(iid.collection) : undefined;
+  const filename = req.body.filename || iid?.id;
 
-  req.collection!.saveImage(req.iid!, filename, req.body.format);
+  collection!.saveImage(iid!, filename);
   res.send(200);
 });
 

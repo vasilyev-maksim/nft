@@ -13,12 +13,12 @@ export const Preview: React.FC<{ iid?: Iid }> = ({ iid }) => {
   React.useEffect(() => localStorage.setItem('size', size), [size]);
   React.useEffect(() => setFilename(''), [iid]);
 
-  const handler = (format: 'svg' | 'png') => () => {
+  const handleSave = React.useCallback(() => {
     const sizeNum = parseInt(size) || DEFAULT_SIZE;
     const iidWithSize = new IidBuilder().fromIid(iid!).withSize(sizeNum, sizeNum).build();
 
-    generate(iidWithSize, filename, format);
-  };
+    generate(iidWithSize, filename);
+  }, [iid, size, filename]);
 
   return (
     <div className='w-[400px]'>
@@ -36,18 +36,12 @@ export const Preview: React.FC<{ iid?: Iid }> = ({ iid }) => {
               <span className='text-xs text-gray-500 shrink-0 w-[35px]'>px</span>
               <br />
             </div>
-            <div className='flex justify-center gap-4 mt-4'>
+            <div className='flex justify-center mt-4'>
               <button
-                onClick={handler('png')}
+                onClick={handleSave}
                 type='button'
-                className='px-6 py-4 text-sm text-red-500 font-semibold rounded-xl border-2 border-red-400 hover:text-white hover:bg-red-400 hover:border-transparent focus:border-transparent focus:bg-red-500 focus:text-white'>
-                PNG
-              </button>
-              <button
-                onClick={handler('svg')}
-                type='button'
-                className='px-6 py-4 text-sm text-blue-500 font-semibold rounded-xl border-2 border-blue-400 hover:text-white hover:bg-blue-500 hover:border-transparent focus:border-transparent focus:bg-blue-600 focus:text-white'>
-                SVG
+                className='w-full px-6 py-4 text-sm text-red-500 font-semibold rounded-xl border-2 border-red-400 hover:text-white hover:bg-red-400 hover:border-transparent focus:border-transparent focus:bg-red-500 focus:text-white'>
+                Save as PNG
               </button>
             </div>
           </form>

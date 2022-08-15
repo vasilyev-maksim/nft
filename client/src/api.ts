@@ -9,14 +9,14 @@ export async function getRandomImages(count: number, collection: string): Promis
   return data.map(x => new IidBuilder().fromIdString(x).build());
 }
 
-export function generate(iid: Iid, filename?: string, format: 'svg' | 'png' = 'png') {
+export function generate(iid: Iid, filename?: string) {
   return fetch(baseUrl + '/image/save', {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     method: 'POST',
-    body: JSON.stringify({ iid, filename, format }),
+    body: JSON.stringify({ iid, filename }),
   });
 }
 

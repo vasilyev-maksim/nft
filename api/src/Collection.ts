@@ -60,15 +60,10 @@ export class Collection {
     };
   }
 
-  public saveImage(iid: Iid, filename: string, format: 'svg' | 'png'): void {
-    const file = this.resultsDir.getFileByName((filename || iid.id) + '.' + format);
+  public saveImage(iid: Iid, filename: string): void {
+    const file = this.resultsDir.getFileByName((filename || iid.id) + '.png');
     const image = this.getImageByIid(iid);
-
-    if (format === 'svg') {
-      image?.saveToSvg(iid.width, iid.width, file);
-    } else if (format === 'png') {
-      image?.saveToPng(iid.width, iid.width, file);
-    }
+    image?.saveToPng(file);
   }
 
   public getCategories() {
