@@ -19,7 +19,6 @@ export class File<ParsedJson = unknown> {
   public constructor(path: string | File<ParsedJson>);
   public constructor(root: string | Directory, filename: string);
   public constructor(rootOrPath: string | Directory | File<ParsedJson>, filename?: string) {
-    
     if (filename === undefined) {
       if (!(rootOrPath instanceof Directory)) {
         if (rootOrPath instanceof File<ParsedJson>) {
@@ -27,8 +26,9 @@ export class File<ParsedJson = unknown> {
           this.name = rootOrPath.name;
           this.ext = rootOrPath.ext;
         } else {
-          const { base, dir } = parse(rootOrPath);
-          this.name = base;
+          const { dir, name, ext } = parse(rootOrPath);
+          this.name = name;
+          this.ext = ext;
           this.parentDir = new Directory(dir);
         }
       } else {
@@ -45,14 +45,8 @@ export class File<ParsedJson = unknown> {
       }
     }
 
-    const { ext, name } = parse(this.path);
-    this.ext = ext;
-    this.name = name;
+    this.ext = this.ext.slice(1);
   }
-
-  // public getChildFid(name: string): Fid {
-  //   return new Fid(this.path, name);
-  // }
 
   public getSiblingFile(fullname: string): File<ParsedJson> {
     return this.parentDir.getFileByName(fullname);
@@ -66,15 +60,12 @@ export class File<ParsedJson = unknown> {
     return new File(this.parentDir, this.name + '.' + ext);
   }
 
-  // public static from(source: FidSource): Fid {
-  //   return source instanceof Directory ? source.fid : source instanceof File ? source.fid : new Fid(source);
-  // }
-
   public get fullName(): string {
     return this.name + '.' + this.ext;
   }
 
   public get path(): string {
+    // console.log(232323,this.parentDir.path, this.fullName);
     return join(this.parentDir.path, this.fullName);
   }
 

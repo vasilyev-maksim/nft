@@ -50,7 +50,7 @@ export class Collection {
 
   public getImageByIid(iid: Iid): Image | null {
     const layers = this.categories.map(x => x.getOneOf(iid)).filter(Boolean) as Layer[];
-    return layers.length > 0 ? new Image(layers) : null;
+    return layers.length > 0 ? new Image(layers, iid) : null;
   }
 
   public toJSON(): any {

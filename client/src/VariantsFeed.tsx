@@ -64,7 +64,7 @@ export const VariantsFeed: React.FC<{
                   <>{hasNextPage ? 'Loading more...' : 'Nothing more to load'}</>
                 ) : (
                   <Image
-                    className='rounded-lg overflow-hidden cursor-pointer'
+                    className='rounded-md overflow-hidden cursor-pointer'
                     active={selected?.id === v.id}
                     iid={v}
                     size={300}

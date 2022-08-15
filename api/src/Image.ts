@@ -1,12 +1,13 @@
 import { Layer } from './Layer';
 import { File } from './File';
 import sharp from 'sharp';
+import { Iid } from 'shared';
 
 export class Image {
   private static WIDTH_PLACEHOLDER = '__[W]__';
   private static HEIGHT_PLACEHOLDER = '__[H]__';
 
-  public constructor(private readonly layers: Layer[]) {}
+  public constructor(private readonly layers: Layer[], private readonly iid: Iid) {}
 
   public saveToSvg(width: number, height: number, file: File): void {
     file.write(this.toSvgString(width, height));
@@ -42,7 +43,17 @@ export class Image {
     );
   }
 
-  // public toPngStream(width: number, height: number) {
-  //   await sharp(tempFile.fid.path).resize(width, height).png();
-  // }
+  public toPngBuffer(): Promise<Buffer> {
+    return sharp({
+      create: {
+        width: 1000, //this.iid.width,
+        height: 1000, //this.iid.height,
+        channels: 4,
+        background: { r: 255, g: 255, b: 255, alpha: 1 },
+      },
+    })
+      .png()
+      .composite(this.layers.map(x => ({ input: x.file.path })))
+      .toBuffer();
+  }
 }

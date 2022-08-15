@@ -34,7 +34,7 @@ export const LayersToolbar: React.FC<{
 
       <div>
         {data?.categories.map(cat => (
-          <section className='bg-slate-200 p-4 mb-4 last:mb-0 rounded-xl' key={cat.id}>
+          <section className='bg-slate-200 p-4 mb-4 last:mb-0 rounded-md' key={cat.id}>
             <header className='mb-2'>
               {cat.name}[{cat.id}] (
               {cat.probability === 1 ? 'always presents' : 'probability ' + cat.probability * 100 + '%'})

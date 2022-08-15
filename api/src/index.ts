@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import { NFTGenerator } from './NFTGenerator';
 import { join } from 'path';
 import morgan from 'morgan';
-import { ICollectionConfig, ISVGTemplate, IidBuilder, IRandomImages, ICollections, Iid } from 'shared';
+import { ICollectionConfig, IidBuilder, IRandomImages, ICollections, Iid } from 'shared';
 import { Directory } from './Directory';
 import { Collection } from './Collection';
 
@@ -20,18 +20,6 @@ declare global {
 const collectionsDir = new Directory(join(__dirname, '..', 'collections'));
 const generator = new NFTGenerator(collectionsDir);
 
-// middlewares
-function populateRequest(req: Request, res: Response, next: NextFunction) {
-  try {
-    req.iid = req.body.iid ? new IidBuilder().fromIdString(req.body.iid).build() : undefined;
-    const collectionId = req.iid?.collection || req.body.collection || req.query.collection || req.params.collection;
-    req.collection = generator.findCollection(collectionId);
-  } catch (e) {
-    console.log(e);
-  }
-  next();
-}
-
 const app = express();
 const port = 3002;
 
@@ -43,10 +31,10 @@ app.use(
     extended: true,
   }),
 );
-app.use(populateRequest);
 
-app.get('/collection', (req, res) => {
-  res.json(req.collection?.toJSON() as ICollectionConfig);
+app.get('/collection/:collection', (req, res) => {
+  const collection = req.params.collection ? generator.findCollection(req.params.collection.toString()) : undefined;
+  res.json(collection?.toJSON() as ICollectionConfig);
 });
 
 app.get('/collections/name', (req, res) => {
@@ -60,13 +48,17 @@ app.post('/image/save', (req, res) => {
   res.send(200);
 });
 
-app.post('/image/preview', ({ iid, collection }, res) => {
+app.get('/image/preview/:iid', (req, res) => {
+  const iid = req.params.iid ? new IidBuilder().fromIdString(req.params.iid).build() : undefined;
+  const collection = iid?.collection ? generator.findCollection(iid.collection) : undefined;
   const image = collection!.getImageByIid(iid!);
-  res.json(image?.toSvgTemplate() as ISVGTemplate);
+  console.log(iid?.width, iid?.height);
+  image?.toPngBuffer().then(x => res.type('png').send(x));
 });
 
-app.get('/images/random', ({ collection, query }, res) => {
-  const count = parseInt(query.count?.toString() ?? '200') || 200;
+app.get('/images/random', (req, res) => {
+  const collection = req.query.collection ? generator.findCollection(req.query.collection.toString()) : undefined;
+  const count = parseInt(req.query.count?.toString() ?? '200') || 200;
   const randomIds = Array.from({ length: count }, () => collection!.getRandomImageIid()).map(x => x.id);
   res.json(randomIds as IRandomImages);
 });

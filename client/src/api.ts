@@ -20,19 +20,12 @@ export function generate(iid: Iid, filename?: string, format: 'svg' | 'png' = 'p
   });
 }
 
-// export function preview(iid: Iid): Promise<ISVGTemplate> {
-//   return fetch(baseUrl + '/image/preview', {
-//     headers: {
-//       Accept: 'application/json',
-//       'Content-Type': 'application/json',
-//     },
-//     method: 'POST',
-//     body: JSON.stringify({ iid }),
-//   }).then(x => x.json());
-// }
+export function getPreviewUrl(iid: Iid): string {
+  return baseUrl + '/image/preview/' + encodeURIComponent(iid.id);
+}
 
 export function getCollectionConfig(collection: string): Promise<ICollectionConfig> {
-  return fetch(baseUrl + '/collection?collection=' + collection).then(x => x.json());
+  return fetch(baseUrl + '/collection/' + collection).then(x => x.json());
 }
 
 export function getCollections(): Promise<ICollections> {
