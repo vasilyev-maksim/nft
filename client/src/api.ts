@@ -1,7 +1,7 @@
 import * as shared from 'shared';
 // import { ICollectionConfig, ICollections, Iid, IidBuilder, IRandomImages, ISVGTemplate } from 'shared';
 
-const baseUrl = 'http://localhost:3002';
+const baseUrl = import.meta.env.VITE_API_URL;
 import 'shared';
 console.log(shared);
 
