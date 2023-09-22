@@ -32,6 +32,10 @@ app.use(
   }),
 );
 
+app.get('/health', (req, res) => {
+  res.sendStatus(200);
+});
+
 app.get('/collection/:collection', (req, res) => {
   const collection = req.params.collection ? generator.findCollection(req.params.collection.toString()) : undefined;
   res.json(collection?.toJSON() as ICollectionConfig);
