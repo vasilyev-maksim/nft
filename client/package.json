@@ -30,7 +30,7 @@
     "eslint-plugin-react": "^7.33.2",
     "postcss": "^8.4.30",
     "prettier": "^3.0.3",
-    "shared": "file:../shared/dist/client",
+    "shared": "workspace:*",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.2.2",
     "vite": "^4.4.9"

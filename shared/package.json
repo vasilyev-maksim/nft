@@ -1,17 +1,9 @@
 {
   "name": "shared",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.0",
   "author": "Maksim Vasilyev",
-  "main": "./index.js",
-  "scripts": {
-    "build": "npm run build:client & npm run build:api",
-    "build:client": "tsc -p ./tsconfig.for.client.json && npm run copy-package-json:client",
-    "build:api": "tsc -p ./tsconfig.for.api.json && npm run copy-package-json:api",
-    "copy-package-json:client": "cp package.json ./dist/client/package.json",
-    "copy-package-json:api": "cp package.json ./dist/api/package.json",
-    "dev": "tsc -p ./tsconfig.for.client.json --watch --preserveWatchOutput & tsc -p ./tsconfig.for.api.json --watch --preserveWatchOutput"
-  },
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
   "license": "ISC",
   "devDependencies": {
     "typescript": "^5.2.2"

@@ -4,9 +4,6 @@ importers:
 
   .:
     devDependencies:
-      '@types/node':
-        specifier: ^20.6.3
-        version: 20.6.3
       prettier:
         specifier: ^3.0.3
         version: 3.0.3
@@ -35,8 +32,8 @@ importers:
         specifier: ^0.12.7
         version: 0.12.7
       shared:
-        specifier: file:../shared/dist/api
-        version: file:shared/dist/api
+        specifier: workspace:*
+        version: link:../shared
       sharp:
         specifier: ^0.30.3
         version: 0.30.3
@@ -133,8 +130,8 @@ importers:
         specifier: ^3.0.3
         version: 3.0.3
       shared:
-        specifier: file:../shared/dist/client
-        version: file:shared/dist/client
+        specifier: workspace:*
+        version: link:../shared
       tailwindcss:
         specifier: ^3.3.3
         version: 3.3.3
@@ -4879,16 +4876,4 @@ packages:
   /yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
-    dev: true
-
-  file:shared/dist/api:
-    resolution: {directory: shared/dist/api, type: directory}
-    name: api
-    version: 0.0.0
-    dev: false
-
-  file:shared/dist/client:
-    resolution: {directory: shared/dist/client, type: directory}
-    name: client
-    version: 0.0.0
     dev: true

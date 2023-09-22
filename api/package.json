@@ -16,7 +16,7 @@
     "path": "^0.12.7",
     "sharp": "^0.30.3",
     "superstruct": "^0.15.4",
-    "shared": "file:../shared/dist/api"
+    "shared": "workspace:*"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.2",
