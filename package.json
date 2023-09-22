@@ -13,7 +13,9 @@
   ],
   "scripts": {
     "dev": "turbo run dev",
-    "build": "turbo run build",
+    "build:client": "turbo run build --filter=./client",
+    "build:api": "turbo run build --filter=./api",
+    "build:all": "turbo run build",
     "clean": "npm run build && rm -rf ./api/collections/**/*snapshot* ./node_modules ./logs/* ./client/node_modules ./client/yarn*.* ./client/package-lock.json ./api/node_modules ./api/yarn*.* ./api/package-lock.json",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
