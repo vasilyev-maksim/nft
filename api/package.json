@@ -1,15 +1,12 @@
 {
   "name": "nft-api",
-  "description": "API server for NFT generator app",
-  "license": "MIT",
   "author": "Maksim Vasilyev",
-  "version": "1.0.0",
+  "version": "0.0.0",
+  "description": "API server for NFT Generator app",
+  "license": "MIT",
   "scripts": {
-    "start": "ts-node-dev src/index.ts",
-    "s": "ts-node-dev src/script.ts",
-    "refresh": "rm -rf ./node_modules ./package-lock.json && yarn install",
-    "build": "tsc -p .",
-    "npm:upgrade": "npx npm-check-updates -iu"
+    "dev": "ts-node-dev src/index.ts",
+    "build": "tsc -p ."
   },
   "dependencies": {
     "body-parser": "^1.19.2",
@@ -17,9 +14,9 @@
     "express": "^4.17.3",
     "morgan": "^1.10.0",
     "path": "^0.12.7",
-    "shared": "file:../shared/dist/api",
     "sharp": "^0.30.3",
-    "superstruct": "^0.15.4"
+    "superstruct": "^0.15.4",
+    "shared": "file:../shared/dist/api"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.2",

@@ -6,11 +6,11 @@ import { CollectionSelector } from './CollectionSelector';
 import { useCollection } from './hooks';
 import { Image } from './Image';
 import { Loader } from './Loader';
-import { Iid } from 'shared';
+import * as shared from 'shared';
 
 export const VariantsFeed: React.FC<{
-  onSelect: (val: Iid) => void;
-  selected?: Iid;
+  onSelect: (val: shared.Iid) => void;
+  selected?: shared.Iid;
 }> = ({ selected, onSelect }) => {
   const { selectedCollection } = useCollection();
   const { status, data, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfiniteQuery(

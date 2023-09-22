@@ -8,7 +8,7 @@ import { SelectorBase, SelectorProps } from './SelectorBase';
 export const Selector = <T extends Object>(props: SelectorProps<T, string>): React.ReactElement => {
   const { toggle, state: expanded } = useToggleState();
   const handleSelect = React.useCallback(
-    (value, onlyOneRendered) => {
+    (value: T, onlyOneRendered?: boolean) => {
       if (!onlyOneRendered) {
         props.onSelect(value);
       }

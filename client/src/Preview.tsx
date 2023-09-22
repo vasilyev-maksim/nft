@@ -2,11 +2,11 @@ import * as React from 'react';
 import { generate } from './api';
 import { Image } from './Image';
 import { Input } from './Input';
-import { Iid, IidBuilder } from 'shared';
+import * as shared from 'shared';
 
 const DEFAULT_SIZE = 1500;
 
-export const Preview: React.FC<{ iid?: Iid }> = ({ iid }) => {
+export const Preview: React.FC<{ iid?: shared.Iid }> = ({ iid }) => {
   const [filename, setFilename] = React.useState('');
   const [size, setSize] = React.useState<string>(localStorage.getItem('size') || '');
 
@@ -15,7 +15,7 @@ export const Preview: React.FC<{ iid?: Iid }> = ({ iid }) => {
 
   const handleSave = React.useCallback(() => {
     const sizeNum = parseInt(size) || DEFAULT_SIZE;
-    const iidWithSize = new IidBuilder().fromIid(iid!).withSize(sizeNum, sizeNum).build();
+    const iidWithSize = new shared.IidBuilder().fromIid(iid!).withSize(sizeNum, sizeNum).build();
 
     generate(iidWithSize, filename);
   }, [iid, size, filename]);

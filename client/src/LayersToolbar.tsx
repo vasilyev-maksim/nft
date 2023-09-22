@@ -1,14 +1,14 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import { useQuery } from 'react-query';
-import { Iid, IidBuilder, Layer } from 'shared';
+import * as shared from 'shared';
 import { getCollectionConfig } from './api';
 import { useCollection } from './hooks';
 import { Image } from './Image';
 
 export const LayersToolbar: React.FC<{
-  selected: Iid;
-  onSelect: React.Dispatch<React.SetStateAction<Iid | undefined>>;
+  selected: shared.Iid;
+  onSelect: React.Dispatch<React.SetStateAction<shared.Iid | undefined>>;
 }> = ({ selected, onSelect }) => {
   const { selectedCollection } = useCollection();
   const { data, isLoading } = useQuery(['config', selectedCollection], () => getCollectionConfig(selectedCollection));
@@ -41,14 +41,14 @@ export const LayersToolbar: React.FC<{
             </header>
             <div className='flex gap-2 flex-wrap cursor-pointer'>
               {cat.layers.map(_layer => {
-                const layer = new Layer(_layer.id, _layer.category);
-                const singleLayerIid = new IidBuilder().fromIid(selected).withSingleLayer(layer).build();
+                const layer = new shared.Layer(_layer.id, _layer.category);
+                const singleLayerIid = new shared.IidBuilder().fromIid(selected).withSingleLayer(layer).build();
 
                 return (
                   <Image
                     onClick={() =>
                       onSelect(curr => {
-                        const builder = new IidBuilder().fromIid(curr!);
+                        const builder = new shared.IidBuilder().fromIid(curr!);
                         return (curr!.contains(layer) ? builder.removeLayer(layer) : builder.setLayer(layer)).build();
                       })
                     }

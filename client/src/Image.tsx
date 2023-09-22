@@ -2,15 +2,11 @@ import classNames from 'classnames';
 import * as React from 'react';
 // import { useQuery } from 'react-query';
 import { getPreviewUrl } from './api';
-import { Iid } from 'shared';
+import * as shared from 'shared';
 
-export const Image: React.FC<React.HTMLAttributes<HTMLDivElement> & { iid: Iid; size: number; active?: boolean }> = ({
-  iid,
-  size,
-  className,
-  active = false,
-  ...props
-}) => {
+export const Image: React.FC<
+  React.HTMLAttributes<HTMLDivElement> & { iid: shared.Iid; size: number; active?: boolean }
+> = ({ iid, size, className, active = false, ...props }) => {
   // const { data, isLoading } = useQuery(['preview', iid.id], () => preview(iid), {
   //   enabled: !!iid,
   //   staleTime: Infinity,

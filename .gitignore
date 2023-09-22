@@ -41,3 +41,6 @@ Thumbs.db
 .history
 
 # api/collections*
+
+# turbo
+.turbo

@@ -21,7 +21,7 @@ export class File<ParsedJson = unknown> {
   public constructor(rootOrPath: string | Directory | File<ParsedJson>, filename?: string) {
     if (filename === undefined) {
       if (!(rootOrPath instanceof Directory)) {
-        if (rootOrPath instanceof File<ParsedJson>) {
+        if (rootOrPath instanceof File) {
           this.parentDir = rootOrPath.parentDir;
           this.name = rootOrPath.name;
           this.ext = rootOrPath.ext;

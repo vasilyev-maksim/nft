@@ -1,15 +1,18 @@
-import { ICollectionConfig, ICollections, Iid, IidBuilder, IRandomImages, ISVGTemplate } from 'shared';
+import * as shared from 'shared';
+// import { ICollectionConfig, ICollections, Iid, IidBuilder, IRandomImages, ISVGTemplate } from 'shared';
 
 const baseUrl = 'http://localhost:3002';
+import 'shared';
+console.log(shared);
 
-export async function getRandomImages(count: number, collection: string): Promise<Iid[]> {
-  const data: IRandomImages = await (
+export async function getRandomImages(count: number, collection: string): Promise<shared.Iid[]> {
+  const data: shared.IRandomImages = await (
     await fetch(baseUrl + `/images/random?count=${count}&collection=${collection}`)
   ).json();
-  return data.map(x => new IidBuilder().fromIdString(x).build());
+  return data.map(x => new shared.IidBuilder().fromIdString(x).build());
 }
 
-export function generate(iid: Iid, filename?: string) {
+export function generate(iid: shared.Iid, filename?: string) {
   return fetch(baseUrl + '/image/save', {
     headers: {
       Accept: 'application/json',
@@ -20,14 +23,14 @@ export function generate(iid: Iid, filename?: string) {
   });
 }
 
-export function getPreviewUrl(iid: Iid): string {
+export function getPreviewUrl(iid: shared.Iid): string {
   return baseUrl + '/image/preview/' + encodeURIComponent(iid.id);
 }
 
-export function getCollectionConfig(collection: string): Promise<ICollectionConfig> {
+export function getCollectionConfig(collection: string): Promise<shared.ICollectionConfig> {
   return fetch(baseUrl + '/collection/' + collection).then(x => x.json());
 }
 
-export function getCollections(): Promise<ICollections> {
+export function getCollections(): Promise<shared.ICollections> {
   return fetch(baseUrl + '/collections/name').then(x => x.json());
 }

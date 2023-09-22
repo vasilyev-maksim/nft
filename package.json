@@ -1,19 +1,30 @@
 {
   "name": "nft",
-  "version": "1.0.0",
-  "description": "This project runs React web client and API server of NFT generator app",
+  "description": "NFT Generator app",
+  "version": "0.0.0",
   "main": "start.js",
   "author": "Maksim Vasilyev",
   "license": "MIT",
   "private": true,
-  "devDependencies": {
-    "@types/node": "^17.0.25",
-    "kill-port": "^1.6.1"
-  },
+  "workspaces": [
+    "client",
+    "shared",
+    "api"
+  ],
   "scripts": {
-    "start": "kill-port 3001 3002 && node dist/start.js",
-    "watch": "tsc -w start.ts",
-    "build": "tsc && tsc -b -f -v",
-    "clean": "npm run build && rm -rf ./api/collections/**/*snapshot* ./node_modules ./logs/* ./client/node_modules ./client/yarn*.* ./client/package-lock.json ./api/node_modules ./api/yarn*.* ./api/package-lock.json"
-  }
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "clean": "npm run build && rm -rf ./api/collections/**/*snapshot* ./node_modules ./logs/* ./client/node_modules ./client/yarn*.* ./client/package-lock.json ./api/node_modules ./api/yarn*.* ./api/package-lock.json",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "@types/node": "^20.6.3",
+    "prettier": "^3.0.3",
+    "turbo": "^1.10.14",
+    "typescript": "^5.2.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "packageManager": "pnpm@8.1.1"
 }

@@ -29,7 +29,7 @@ export class Parser<S = any> {
         if (Array.isArray(_schema)) {
           return chunks.map(chunk => recursiveDecode(_schema[0], chunk, currDepth + 1));
         } else {
-          return Object.keys(_schema)
+          return Object.keys(_schema as any)
             .sort()
             .reduce((acc, key, i) => {
               const s = _schema as Record<string, any>;
@@ -58,7 +58,7 @@ export class Parser<S = any> {
         if (Array.isArray(schema)) {
           return schema.map(x => recursiveEncode(x, currDepth + 1)).join(separator);
         } else {
-          return Object.keys(schema)
+          return Object.keys(schema as any)
             .sort()
             .map(key => recursiveEncode((schema as Record<string, any>)[key], currDepth + 1))
             .join(separator);

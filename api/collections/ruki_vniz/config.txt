@@ -13,5 +13,5 @@ eyes 1
 lips 1
 tattoo 0.5
 hair 1
-headset 1
 glasses 0.3
+headset 1
