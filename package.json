@@ -2,7 +2,6 @@
   "name": "nft",
   "description": "NFT Generator app",
   "version": "0.0.0",
-  "main": "start.js",
   "author": "Maksim Vasilyev",
   "license": "MIT",
   "private": true,
@@ -15,7 +14,7 @@
     "dev": "turbo run dev",
     "build:client": "turbo run build --filter=./client",
     "build:api": "turbo run build --filter=./api",
-    "build:all": "turbo run build",
+    "build": "turbo run build",
     "clean": "npm run build && rm -rf ./api/collections/**/*snapshot* ./node_modules ./logs/* ./client/node_modules ./client/yarn*.* ./client/package-lock.json ./api/node_modules ./api/yarn*.* ./api/package-lock.json",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
