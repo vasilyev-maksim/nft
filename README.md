@@ -18,3 +18,6 @@
 - сделать нормальные размеры для превью, тулбара итд (не 1000 х 1000)
 
 - remove \*.snapshot.json
+
+- dedicated endpoint for toolbar pics?
+- limit requests from client not to overhelm api?
