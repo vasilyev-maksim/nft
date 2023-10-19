@@ -12,3 +12,9 @@
 
 - [ ] Try to make previews pics smaller
 - [ ] Try not to run preview pics generation in parallel
+
+- временное окно чтоб снизить загрузку РАМ
+- залить кэш на сервак
+- сделать нормальные размеры для превью, тулбара итд (не 1000 х 1000)
+
+- remove \*.snapshot.json

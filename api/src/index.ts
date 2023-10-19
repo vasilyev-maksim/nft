@@ -77,9 +77,12 @@ app.get('/image/preview/:iid', (req, res) => {
   } else {
     serializer.planTask(() => {
       const image = collection!.getImageByIid(iid!);
-      return image?.toPngBuffer().then(x => res.set('Cache-Control', 'public, max-age=3600').type('png').send(x));
+      return new Promise(r => setTimeout(r, 0)).then(
+        () => image?.toPngBuffer().then(x => res.set('Cache-Control', 'public, max-age=3600').type('png').send(x)),
+      );
     });
   }
+  console.log('end');
 });
 
 app.get('/images/random', (req, res) => {

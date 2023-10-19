@@ -1,9 +1,6 @@
 import * as shared from 'shared';
-// import { ICollectionConfig, ICollections, Iid, IidBuilder, IRandomImages, ISVGTemplate } from 'shared';
 
 const baseUrl = import.meta.env.VITE_API_URL;
-import 'shared';
-console.log(shared);
 
 export async function getRandomImages(count: number, collection: string): Promise<shared.Iid[]> {
   const data: shared.IRandomImages = await (
