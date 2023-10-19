@@ -72,8 +72,7 @@ app.get('/image/preview/:iid', (req, res) => {
     const iid = req.params.iid ? new IidBuilder().fromIdString(req.params.iid).build() : undefined;
     const collection = iid?.collection ? generator.findCollection(iid.collection) : undefined;
     const image = collection!.getImageByIid(iid!);
-    image?.toPngBuffer().then(x => res.type('png').send(x));
-    return new Promise(r => setTimeout(r, 0));
+    return image?.toPngBuffer().then(x => res.set('Cache-Control', 'public, max-age=3600').type('png').send(x));
   });
 });
 
