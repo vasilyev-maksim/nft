@@ -64,7 +64,7 @@ app.post('/image/save', (req, res) => {
   res.send(200);
 });
 
-const serializer = new TaskSerializer(1);
+const serializer = new TaskSerializer(2);
 
 // app.get('/image/preview/:iid', previewRateLimiter, (req, res) => {
 app.get('/image/preview/:iid', (req, res) => {
