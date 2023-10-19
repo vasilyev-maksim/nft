@@ -27,7 +27,7 @@ export const Image: React.FC<
         'ring-blue-400 ring': active,
       })}>
       <img alt={iid.id} src={getPreviewUrl(iid)} style={{ width: size, height: size }} />
-      {/* <div className='text-center text-gray-500' style={{ width: size, height: size }}>
+      {/* <div className='flex justify-center items-center text-gray-500 bg-gray-200' style={{ width: size, height: size }}>
         Loading...
       </div> */}
       {/* {__html ? (

@@ -12,11 +12,12 @@
     "body-parser": "^1.19.2",
     "cors": "^2.8.5",
     "express": "^4.17.3",
+    "express-rate-limit": "^7.1.1",
     "morgan": "^1.10.0",
     "path": "^0.12.7",
+    "shared": "workspace:*",
     "sharp": "^0.30.3",
-    "superstruct": "^0.15.4",
-    "shared": "workspace:*"
+    "superstruct": "^0.15.4"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.2",

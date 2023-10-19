@@ -1,4 +1,5 @@
 import express, { NextFunction, Request, Response } from 'express';
+import { rateLimit } from 'express-rate-limit';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import { NFTGenerator } from './NFTGenerator';
@@ -7,6 +8,7 @@ import morgan from 'morgan';
 import { ICollectionConfig, IidBuilder, IRandomImages, ICollections, Iid } from 'shared';
 import { Directory } from './Directory';
 import { Collection } from './Collection';
+import { TaskSerializer } from './TaskSerializer';
 
 declare global {
   namespace Express {
@@ -22,6 +24,14 @@ const generator = new NFTGenerator(collectionsDir);
 
 const app = express();
 const port = 3002;
+
+const previewRateLimiter = rateLimit({
+  windowMs: 1000, // 15 minutes
+  limit: 1, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+  standardHeaders: 'draft-7', // Set `RateLimit` and `RateLimit-Policy` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  // store: ... , // Use an external store for more precise rate limiting
+});
 
 app.use(morgan('dev'));
 app.use(cors());
@@ -54,12 +64,17 @@ app.post('/image/save', (req, res) => {
   res.send(200);
 });
 
+const serializer = new TaskSerializer(1);
+
+// app.get('/image/preview/:iid', previewRateLimiter, (req, res) => {
 app.get('/image/preview/:iid', (req, res) => {
-  const iid = req.params.iid ? new IidBuilder().fromIdString(req.params.iid).build() : undefined;
-  const collection = iid?.collection ? generator.findCollection(iid.collection) : undefined;
-  const image = collection!.getImageByIid(iid!);
-  console.log(iid?.width, iid?.height);
-  image?.toPngBuffer().then(x => res.type('png').send(x));
+  serializer.planTask(() => {
+    const iid = req.params.iid ? new IidBuilder().fromIdString(req.params.iid).build() : undefined;
+    const collection = iid?.collection ? generator.findCollection(iid.collection) : undefined;
+    const image = collection!.getImageByIid(iid!);
+    image?.toPngBuffer().then(x => res.type('png').send(x));
+    return new Promise(r => setTimeout(r, 0));
+  });
 });
 
 app.get('/images/random', (req, res) => {
