@@ -42,7 +42,7 @@ export class Collection {
     this.categories = categories;
     this.version = version;
 
-    this.cacheSingleLayers();
+    // this.cacheSingleLayers();
   }
 
   private cacheSingleLayers() {
