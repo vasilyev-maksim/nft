@@ -41,6 +41,34 @@ export class Collection {
 
     this.categories = categories;
     this.version = version;
+
+    this.cacheSingleLayers();
+  }
+
+  private cacheSingleLayers() {
+    const cacheDir = this.dir.getDirectoryByName('cache').createIfMissing();
+    this.categories
+      .flatMap(category =>
+        category.getAll().map(layer => {
+          const iid = new IidBuilder()
+            .withVersion(this.version)
+            .withCollection(this.name)
+            .withSingleLayer(layer)
+            .withSize(100, 100)
+            .build();
+          return new Image([layer], iid);
+        }),
+      )
+      .forEach(image => image.saveToPng(cacheDir.getFileByName(image.iid.toJSON() + '.png')));
+  }
+
+  public getImageBufferFromCache(iid: Iid) {
+    const cacheDir = this.dir.getDirectoryByName('cache');
+    try {
+      return cacheDir.getFileByName(iid.toJSON() + '.png').readBuffer();
+    } catch {
+      return null;
+    }
   }
 
   public getRandomImageIid(): Iid {

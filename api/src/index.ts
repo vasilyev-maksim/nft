@@ -68,12 +68,18 @@ const serializer = new TaskSerializer(1);
 
 // app.get('/image/preview/:iid', previewRateLimiter, (req, res) => {
 app.get('/image/preview/:iid', (req, res) => {
-  serializer.planTask(() => {
-    const iid = req.params.iid ? new IidBuilder().fromIdString(req.params.iid).build() : undefined;
-    const collection = iid?.collection ? generator.findCollection(iid.collection) : undefined;
-    const image = collection!.getImageByIid(iid!);
-    return image?.toPngBuffer().then(x => res.set('Cache-Control', 'public, max-age=3600').type('png').send(x));
-  });
+  const iid = req.params.iid ? new IidBuilder().fromIdString(req.params.iid).build() : undefined;
+  const collection = iid?.collection ? generator.findCollection(iid.collection) : undefined;
+  const cached = collection.getImageBufferFromCache(iid);
+
+  if (cached) {
+    res.set('Cache-Control', 'public, max-age=3600').type('png').send(cached);
+  } else {
+    serializer.planTask(() => {
+      const image = collection!.getImageByIid(iid!);
+      return image?.toPngBuffer().then(x => res.set('Cache-Control', 'public, max-age=3600').type('png').send(x));
+    });
+  }
 });
 
 app.get('/images/random', (req, res) => {

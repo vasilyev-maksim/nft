@@ -42,7 +42,11 @@ export const LayersToolbar: React.FC<{
             <div className='flex gap-2 flex-wrap cursor-pointer'>
               {cat.layers.map(_layer => {
                 const layer = new shared.Layer(_layer.id, _layer.category);
-                const singleLayerIid = new shared.IidBuilder().fromIid(selected).withSingleLayer(layer).build();
+                const singleLayerIid = new shared.IidBuilder()
+                  .fromIid(selected)
+                  .withSingleLayer(layer)
+                  .withSize(100, 100)
+                  .build();
 
                 return (
                   <Image

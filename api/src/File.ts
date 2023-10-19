@@ -5,7 +5,11 @@ import { Directory } from './Directory';
 import crypto from 'crypto';
 
 export class FileError extends AppError {
-  public constructor(public readonly message: string, public readonly sourse: File, childError?: Error) {
+  public constructor(
+    public readonly message: string,
+    public readonly sourse: File,
+    childError?: Error,
+  ) {
     super(message, { childError });
     this.name = 'FileError';
   }
@@ -36,12 +40,12 @@ export class File<ParsedJson = unknown> {
       }
     } else {
       if (!(rootOrPath instanceof File)) {
-        this.parentDir =  rootOrPath instanceof Directory ? rootOrPath: new Directory(rootOrPath);
-        const {name, ext} = parse(filename);
+        this.parentDir = rootOrPath instanceof Directory ? rootOrPath : new Directory(rootOrPath);
+        const { name, ext } = parse(filename);
         this.ext = ext;
         this.name = name;
       } else {
-        throw new FileError(`Invalid arguments: first arg shouldn't be a file`, this)
+        throw new FileError(`Invalid arguments: first arg shouldn't be a file`, this);
       }
     }
 
@@ -88,12 +92,16 @@ export class File<ParsedJson = unknown> {
     } catch {}
   }
 
-  public read(): string {
+  public readBuffer(): Buffer {
     try {
-      return readFileSync(this.path).toString();
+      return readFileSync(this.path);
     } catch (err: any) {
       throw new FileError('Could not read file', this, err);
     }
+  }
+
+  public read(): string {
+    return this.readBuffer().toString();
   }
 
   public readJson<T = ParsedJson>(): T {

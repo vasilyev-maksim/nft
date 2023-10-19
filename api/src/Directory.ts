@@ -1,4 +1,4 @@
-import { readdirSync, watchFile } from 'fs';
+import { existsSync, mkdirSync, readdirSync, watchFile } from 'fs';
 import { join, resolve, basename } from 'path';
 import { File } from './File';
 
@@ -33,6 +33,13 @@ export class Directory {
         return null;
       })
       .filter(Boolean) as (File | Directory)[];
+  }
+
+  public createIfMissing(): Directory {
+    if (!existsSync(this.path)) {
+      mkdirSync(this.path, { recursive: true });
+    }
+    return this;
   }
 
   public readFilesOnly(): File[] {

@@ -95,6 +95,12 @@ export class IidBuilder {
     return clone;
   }
 
+  public withCollection(collection: string): IidBuilder {
+    const clone = this.clone();
+    clone.collection = collection;
+    return clone;
+  }
+
   public setLayer(layer: Layer): IidBuilder {
     const clone = this.clone();
     clone.layers = [...(clone.layers?.length ? clone.layers.filter(x => !x.inSameCategory(layer)) : []), layer];
@@ -123,6 +129,7 @@ export class IidBuilder {
       );
       return iid;
     } catch (childError: any) {
+      console.log('childError', childError);
       throw new AppError('Iid build failed', {
         source: this,
         childError,

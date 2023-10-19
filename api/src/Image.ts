@@ -4,7 +4,10 @@ import sharp, { Sharp } from 'sharp';
 import { Iid } from 'shared';
 
 export class Image {
-  public constructor(private readonly layers: Layer[], private readonly iid: Iid) {}
+  public constructor(
+    private readonly layers: Layer[],
+    public readonly iid: Iid,
+  ) {}
 
   public async saveToPng(file: File): Promise<void> {
     try {
@@ -21,8 +24,8 @@ export class Image {
   private toSharp(): Sharp {
     return sharp({
       create: {
-        width: 1000, // TODO: this.iid.width,
-        height: 1000, //this.iid.height,
+        width: 1000, // if "this.iid.width" instead, sharp throws an error: Image to composite must have same dimensions or smaller
+        height: 1000,
         channels: 4,
         background: { r: 255, g: 255, b: 255, alpha: 1 },
       },
