@@ -21,3 +21,5 @@
 
 - dedicated endpoint for toolbar pics?
 - limit requests from client not to overhelm api?
+
+- сделать на фронте лоадер на случай если апиха холдная/легла

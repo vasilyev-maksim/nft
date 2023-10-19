@@ -82,7 +82,6 @@ app.get('/image/preview/:iid', (req, res) => {
       );
     });
   }
-  console.log('end');
 });
 
 app.get('/images/random', (req, res) => {
