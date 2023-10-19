@@ -26,7 +26,8 @@ export class CategoryManager {
       })
       .filter(Boolean) as Layer[];
 
-    const version = (snapshot?.version ?? 0) + 1;
+    const version = 1;
+    // const version = (snapshot?.version ?? 0) + 1; //TODO: тут былв проблема с кэшом для тулбара, потому решил оставить версию = 1
 
     this.config.updateSnapshot({
       categories,
