@@ -3,6 +3,7 @@ import { generate } from './api';
 import { Image } from './Image';
 import { Input } from './Input';
 import * as shared from 'shared';
+import { SvgImage } from './SvgImage';
 
 const DEFAULT_SIZE = 1500;
 
@@ -24,7 +25,7 @@ export const Preview: React.FC<{ iid?: shared.Iid }> = ({ iid }) => {
     <div className='w-[400px]'>
       {iid && (
         <>
-          <Image className='mt-7 rounded-md overflow-hidden' size={400} key={iid.id} iid={iid} />
+          <SvgImage className='rounded-md overflow-hidden' size={400} key={iid.id} iid={iid} />
           <form className='flex flex-col gap-1 mt-2'>
             <div className='flex flex-row gap-2 items-center'>
               <Input

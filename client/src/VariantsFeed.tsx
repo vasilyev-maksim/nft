@@ -7,12 +7,13 @@ import { useCollection } from './hooks';
 import { Image } from './Image';
 import { Loader } from './Loader';
 import * as shared from 'shared';
+import { SvgImage } from './SvgImage';
 
 export const VariantsFeed: React.FC<{
   onSelect: (val: shared.Iid) => void;
   selected?: shared.Iid;
 }> = ({ selected, onSelect }) => {
-  const { selectedCollection } = useCollection();
+  const { selectedCollection, collections } = useCollection();
   const { status, data, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfiniteQuery(
     ['random', selectedCollection],
     () => getRandomImages(5, selectedCollection),
@@ -41,9 +42,11 @@ export const VariantsFeed: React.FC<{
 
   return status === 'success' ? (
     <>
-      <div className='mb-1'>
-        <CollectionSelector />
-      </div>
+      {collections.length > 1 && (
+        <div className='mb-1'>
+          <CollectionSelector />
+        </div>
+      )}
 
       <div ref={parentRef} className={`h-full w-[305px] overflow-auto`}>
         <div style={{ height: `${rowVirtualizer.totalSize}px` }} className='w-full relative'>
@@ -63,7 +66,7 @@ export const VariantsFeed: React.FC<{
                 {isLoaderRow ? (
                   <>{hasNextPage ? 'Loading more...' : 'Nothing more to load'}</>
                 ) : (
-                  <Image
+                  <SvgImage
                     className='rounded-md overflow-hidden cursor-pointer'
                     active={selected?.id === v.id}
                     iid={v}

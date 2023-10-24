@@ -19,7 +19,10 @@ export class NFTGenerator {
   }
 
   public getCollections(): Collection[] {
-    return this.dir.readDirectoriesOnly().map(dir => new Collection(dir));
+    return this.dir
+      .readDirectoriesOnly()
+      .filter(x => !x.name.startsWith('_'))
+      .map(dir => new Collection(dir));
   }
 
   public getCollectionNames(): string[] {

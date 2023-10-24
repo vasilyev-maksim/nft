@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { ICollectionConfig } from 'shared';
 
 export function useToggleState(initialValue = false) {
   const [state, setState] = React.useState(initialValue);
@@ -11,11 +12,18 @@ export function useToggleState(initialValue = false) {
   };
 }
 
-export const CollectionContext = React.createContext<{
+export const CollectionsContext = React.createContext<{
   selectedCollection: string;
   collections: string[];
   selectCollection: (collection: string) => void;
 }>(null as any);
 export function useCollection() {
-  return React.useContext(CollectionContext);
+  return React.useContext(CollectionsContext);
+}
+
+export const SelectedCollectionContext = React.createContext<{
+  collectionConfig: ICollectionConfig;
+}>(null as any);
+export function useSelectedCollection() {
+  return React.useContext(SelectedCollectionContext);
 }

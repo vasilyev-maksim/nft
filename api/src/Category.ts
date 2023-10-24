@@ -9,19 +9,19 @@ export class Category {
     private layers: Layer[],
   ) {}
 
-  public getRandom(): Layer | null {
+  public getRandomLayer(): Layer | null {
     return Math.random() <= this.probability ? this.layers[Math.floor(Math.random() * this.layers.length)] : null;
   }
 
-  public getById(id: number): Layer | undefined {
+  public getLayerById(id: number): Layer | undefined {
     return this.layers.find(l => l.id === id);
   }
 
-  public getOneOf(iid: Iid): Layer | undefined {
+  public getOneOfLayers(iid: Iid): Layer | undefined {
     return this.layers.find(l => iid.contains(l));
   }
 
-  public getAll(): Layer[] {
+  public getAllLayers(): Layer[] {
     return this.layers.slice();
   }
 

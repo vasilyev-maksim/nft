@@ -3,15 +3,18 @@ import * as React from 'react';
 import { useQuery } from 'react-query';
 import * as shared from 'shared';
 import { getCollectionConfig } from './api';
-import { useCollection } from './hooks';
-import { Image } from './Image';
+import { useCollection, useSelectedCollection } from './hooks';
+// import { Image } from './Image';
+import { SvgImage } from './SvgImage';
 
 export const LayersToolbar: React.FC<{
   selected: shared.Iid;
   onSelect: React.Dispatch<React.SetStateAction<shared.Iid | undefined>>;
 }> = ({ selected, onSelect }) => {
   const { selectedCollection } = useCollection();
-  const { data, isLoading } = useQuery(['config', selectedCollection], () => getCollectionConfig(selectedCollection));
+  const { collectionConfig } = useSelectedCollection();
+  // const { data, isLoading } = useQuery(['config', selectedCollection], () => getCollectionConfig(selectedCollection));
+  const isLoading = false;
   const [upscale, setUpscale] = React.useState(0);
   const size = 100 * (upscale + 1);
 
@@ -19,7 +22,7 @@ export const LayersToolbar: React.FC<{
     <>Loading...</>
   ) : (
     <div>
-      <div className='mb-2 text-xs text-gray-500'>
+      {/* <div className='mb-2 text-xs text-gray-500'>
         {upscale * 100}% zoom{' '}
         <input
           type='range'
@@ -30,10 +33,10 @@ export const LayersToolbar: React.FC<{
           className='relative top-1'
           onChange={e => setUpscale(parseInt(e.target.value) / 100)}
         />
-      </div>
+      </div> */}
 
       <div>
-        {data?.categories.map(cat => (
+        {collectionConfig?.categories.map(cat => (
           <section className='bg-slate-200 p-4 mb-4 last:mb-0 rounded-md' key={cat.id}>
             <header className='mb-2'>
               {cat.name}[{cat.id}] (
@@ -49,7 +52,7 @@ export const LayersToolbar: React.FC<{
                   .build();
 
                 return (
-                  <Image
+                  <SvgImage
                     onClick={() =>
                       onSelect(curr => {
                         const builder = new shared.IidBuilder().fromIid(curr!);

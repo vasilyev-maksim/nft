@@ -1,10 +1,11 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import { CollectionContext } from './hooks';
+import { CollectionsContext, SelectedCollectionContext } from './hooks';
 import { LayersToolbar } from './LayersToolbar';
 import { Iid } from 'shared';
 import { Preview } from './Preview';
 import { VariantsFeed } from './VariantsFeed';
+import collectionConfig from './collection.json';
 
 export const App: React.FC<{ collections: string[] }> = ({ collections }) => {
   const [iid, setIid] = React.useState<Iid | undefined>();
@@ -27,28 +28,30 @@ export const App: React.FC<{ collections: string[] }> = ({ collections }) => {
   React.useEffect(() => setIid(undefined), [collection]);
 
   return (
-    <CollectionContext.Provider value={collectionContextValue}>
-      <div className='flex flex-row font-mono max-w-[100vw] max-h-[100vh] overflow-hidden'>
-        <Section header='Random variants' className='shrink-0'>
-          <VariantsFeed selected={iid} onSelect={setIid} />
-        </Section>
-        {iid ? (
-          <>
-            <Section header='Preview' className='shrink-0'>
-              <Preview iid={iid} />
-            </Section>
+    <CollectionsContext.Provider value={collectionContextValue}>
+      <SelectedCollectionContext.Provider value={{ collectionConfig: collectionConfig as any }}>
+        <div className='flex flex-row font-mono max-w-[100vw] max-h-[100vh] overflow-hidden'>
+          <Section header='Random variants' className='shrink-0'>
+            <VariantsFeed selected={iid} onSelect={setIid} />
+          </Section>
+          {iid ? (
+            <>
+              <Section header='Preview' className='shrink-0'>
+                <Preview iid={iid} />
+              </Section>
 
-            <Section header='Layers' className='min-w-[360px] flex-1'>
-              <LayersToolbar selected={iid} onSelect={setIid} />
-            </Section>
-          </>
-        ) : (
-          <span className='text-sm text-gray-500 m-auto text-center'>
-            Select one of the random variants as a base image for the further customizing
-          </span>
-        )}
-      </div>
-    </CollectionContext.Provider>
+              <Section header='Layers' className='min-w-[360px] flex-1'>
+                <LayersToolbar selected={iid} onSelect={setIid} />
+              </Section>
+            </>
+          ) : (
+            <span className='text-sm text-gray-500 m-auto text-center'>
+              Select one of the random variants as a base image for the further customizing
+            </span>
+          )}
+        </div>
+      </SelectedCollectionContext.Provider>
+    </CollectionsContext.Provider>
   );
 };
 
@@ -59,7 +62,7 @@ export const Section: React.FC<React.HTMLAttributes<HTMLDivElement> & { header: 
 }) => {
   return (
     <div className={classNames('flex flex-col m-2', className)}>
-      <header className='mb-2'>{header}</header>
+      <header className='mb-4'>{header}</header>
       <div className='grow overflow-scroll'>{children}</div>
     </div>
   );

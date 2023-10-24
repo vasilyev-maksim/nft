@@ -7,7 +7,7 @@ export class CategoryManager {
   public constructor(private readonly config: Config) {}
 
   public readCategoriesFromDir(dir: Directory): { categories: Category[]; version: number } {
-    const layerFiles = dir.readFilesOnly().filter(f => f.ext === 'png');
+    const layerFiles = dir.readFilesOnly().filter(f => f.ext === 'png' && !f.name.startsWith('_'));
     const snapshot = this.config.getSnapshot();
     const userConfig = this.config.getUserConfig();
 

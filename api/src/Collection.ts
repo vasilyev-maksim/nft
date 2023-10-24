@@ -49,7 +49,7 @@ export class Collection {
     const cacheDir = this.dir.getDirectoryByName('cache').createIfMissing();
     this.categories
       .flatMap(category =>
-        category.getAll().map(layer => {
+        category.getAllLayers().map(layer => {
           const iid = new IidBuilder()
             .withVersion(this.version)
             .withCollection(this.name)
@@ -72,12 +72,12 @@ export class Collection {
   }
 
   public getRandomImageIid(): Iid {
-    const layers = this.categories.map(x => x.getRandom()).filter(Boolean) as Layer[];
+    const layers = this.categories.map(x => x.getRandomLayer()).filter(Boolean) as Layer[];
     return new IidBuilder(this.version, layers, this.name).build();
   }
 
   public getImageByIid(iid: Iid): Image | null {
-    const layers = this.categories.map(x => x.getOneOf(iid)).filter(Boolean) as Layer[];
+    const layers = this.categories.map(x => x.getOneOfLayers(iid)).filter(Boolean) as Layer[];
     return layers.length > 0 ? new Image(layers, iid) : null;
   }
 
