@@ -23,7 +23,7 @@ export const SvgImage: React.FC<
     const body = collectionConfig.categories
       .flatMap(c => c.layers)
       .filter(x => iid.layers.some(l => l.id === x.id))
-      .reduce((acc, x) => acc + x.svg, '');
+      .reduce((acc, x) => acc + (x as any).svg, '');
     return `<svg width=${size} height=${size} viewBox="0 0 1660 1660" fill="none" xmlns="http://www.w3.org/2000/svg">
       ${body}
     </svg>`;
