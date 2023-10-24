@@ -29,5 +29,6 @@ export function getCollectionConfig(collection: string): Promise<shared.ICollect
 }
 
 export function getCollections(): Promise<shared.ICollections> {
-  return fetch(baseUrl + '/collections/name').then(x => x.json());
+  return Promise.resolve(['ruki_vniz']);
+  // return fetch(baseUrl + '/collections/name').then(x => x.json());
 }

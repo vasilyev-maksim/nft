@@ -31,7 +31,10 @@ export class ConfigError extends FileError {
 }
 
 export class Config {
-  public constructor(private readonly configFile: File, private readonly snapshotFile: File) {}
+  public constructor(
+    private readonly configFile: File,
+    private readonly snapshotFile: File,
+  ) {}
 
   public getSnapshot(): ISnapshot | undefined {
     try {
@@ -50,10 +53,13 @@ export class Config {
   public getUserConfig(): IUserConfig {
     try {
       return {
-        categories: this.configFile.readLines().map(x => {
-          const [prefix, probability] = x.split(' ');
-          return { prefix, probability: Number(probability) };
-        }),
+        categories: this.configFile
+          .readLines()
+          .filter(x => !x.startsWith('//'))
+          .map(x => {
+            const [prefix, probability] = x.split(' ');
+            return { prefix, probability: Number(probability) };
+          }),
       };
     } catch (childError: any) {
       throw new ConfigError(`Invalid config file`, this.configFile, childError);

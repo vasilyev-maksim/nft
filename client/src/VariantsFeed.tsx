@@ -1,22 +1,38 @@
 import * as React from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { useVirtual } from 'react-virtual';
-import { getRandomImages } from './api';
+// import { getRandomImages } from './api';
 import { CollectionSelector } from './CollectionSelector';
-import { useCollection } from './hooks';
-import { Image } from './Image';
+import { useCollection, useSelectedCollection } from './hooks';
+// import { Image } from './Image';
 import { Loader } from './Loader';
 import * as shared from 'shared';
 import { SvgImage } from './SvgImage';
+
+function getRandomImages(count: number, collectionConfig: shared.ICollectionConfig): Promise<shared.Iid[]> {
+  return Promise.resolve(
+    Array.from({ length: count }, () => {
+      const layers = collectionConfig.categories
+        .map(x => {
+          return Math.random() <= x.probability ? x.layers[Math.floor(Math.random() * x.layers.length)] : null;
+        })
+        .filter(Boolean) as shared.Layer[];
+      const iid = new shared.IidBuilder(1, layers, collectionConfig.name).build(); // TODO: '1' is hardcoded
+      return iid;
+    }),
+  );
+}
 
 export const VariantsFeed: React.FC<{
   onSelect: (val: shared.Iid) => void;
   selected?: shared.Iid;
 }> = ({ selected, onSelect }) => {
   const { selectedCollection, collections } = useCollection();
+  const { collectionConfig } = useSelectedCollection();
   const { status, data, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfiniteQuery(
-    ['random', selectedCollection],
-    () => getRandomImages(5, selectedCollection),
+    ['random', collectionConfig],
+    // ['random', selectedCollection],
+    () => getRandomImages(5, collectionConfig),
     {
       getNextPageParam: () => 1,
       refetchOnMount: false,

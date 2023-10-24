@@ -36,40 +36,42 @@ export const LayersToolbar: React.FC<{
       </div> */}
 
       <div>
-        {collectionConfig?.categories.map(cat => (
-          <section className='bg-slate-200 p-4 mb-4 last:mb-0 rounded-md' key={cat.id}>
-            <header className='mb-2'>
-              {cat.name}[{cat.id}] (
-              {cat.probability === 1 ? 'always presents' : 'probability ' + cat.probability * 100 + '%'})
-            </header>
-            <div className='flex gap-2 flex-wrap cursor-pointer'>
-              {cat.layers.map(_layer => {
-                const layer = new shared.Layer(_layer.id, _layer.category);
-                const singleLayerIid = new shared.IidBuilder()
-                  .fromIid(selected)
-                  .withSingleLayer(layer)
-                  .withSize(100, 100)
-                  .build();
+        {collectionConfig?.categories
+          .filter(x => x.name !== 'legs' && x.name !== 'tors') // TODO: dirty hack
+          .map(cat => (
+            <section className='bg-slate-200 p-4 mb-4 last:mb-0 rounded-md' key={cat.id}>
+              <header className='mb-2'>
+                {cat.name}[{cat.id}] (
+                {cat.probability === 1 ? 'always presents' : cat.probability * 100 + '% probability'})
+              </header>
+              <div className='flex gap-2 flex-wrap cursor-pointer'>
+                {cat.layers.map(_layer => {
+                  const layer = new shared.Layer(_layer.id, _layer.category);
+                  const singleLayerIid = new shared.IidBuilder()
+                    .fromIid(selected)
+                    .withSingleLayer(layer)
+                    .withSize(100, 100)
+                    .build();
 
-                return (
-                  <SvgImage
-                    onClick={() =>
-                      onSelect(curr => {
-                        const builder = new shared.IidBuilder().fromIid(curr!);
-                        return (curr!.contains(layer) ? builder.removeLayer(layer) : builder.setLayer(layer)).build();
-                      })
-                    }
-                    iid={singleLayerIid}
-                    active={selected.contains(layer)}
-                    size={size}
-                    key={singleLayerIid.id}
-                    className={classNames('inline-block bg-slate-100 rounded')}
-                  />
-                );
-              })}
-            </div>
-          </section>
-        ))}
+                  return (
+                    <SvgImage
+                      onClick={() =>
+                        onSelect(curr => {
+                          const builder = new shared.IidBuilder().fromIid(curr!);
+                          return (curr!.contains(layer) ? builder.removeLayer(layer) : builder.setLayer(layer)).build();
+                        })
+                      }
+                      iid={singleLayerIid}
+                      active={selected.contains(layer)}
+                      size={size}
+                      key={singleLayerIid.id}
+                      className={classNames('inline-block bg-slate-100 rounded')}
+                    />
+                  );
+                })}
+              </div>
+            </section>
+          ))}
       </div>
     </div>
   );
